@@ -4,15 +4,17 @@
 
 # Abstract
 
-Short (120-130 words) summary of your entire report. Give the reader a quick idea of what you did and what the main findings were (if you prepare this report ahead of time, leave out the findings until after you finish the analysis).
+> Short (120-130 words) summary of your entire report. Give the reader a quick idea of what you did and what the main findings were (if you prepare this report ahead of time, leave out the findings until after you finish the analysis).
 
 # 1\. Introduction
 
-Introduce the topic of investigation to the reader and motivate why you did the experiment. Note that in our case, writing “because I was told to by the course instructor” is not a valid answer. Please assume that you are trying to answer a certain relevant question and motivate its relevance. (In a “real” study report, you would need to also discuss any relevant prior research results here. Given our setting, however, we skip any “related work” consideration.) Your final paragraph of the introduction should outline your proposed experiment.
+> Introduce the topic of investigation to the reader and motivate why you did the experiment. Note that in our case, writing “because I was told to by the course instructor” is not a valid answer. Please assume that you are trying to answer a certain relevant question and motivate its relevance. (In a “real” study report, you would need to also discuss any relevant prior research results here. Given our setting, however, we skip any “related work” consideration.) Your final paragraph of the introduction should outline your proposed experiment.
 
-| Hypotheses: |
-| :---- |
-| Write down your (falsifiable\!) hypotheses here. Each hypothesis must include **independent** and your **dependent** variables. You must write down your hypotheses **before** you do your experiment\! |
+Hypotheses:
+---
+> Write down your (falsifiable\!) hypotheses here. Each hypothesis must include **independent** and your **dependent** variables. You must write down your hypotheses **before** you do your experiment\! |
+
+QuickSort algorithm is the best in terms of performances since his complexity is $O(n*logn)$; compared to BoubleSort $O(n^2)$ and Selection Sort $O(n^2)$.
 
 # 2\. Method
 
@@ -20,23 +22,31 @@ In the following subsections, describe everything that a reader would need to re
 
 ## 2.1 Variables
 
-Explicitly identify the independent variable(s) (i.e., what you as the experimenter manipulate): 
-
-| Independent variable | Levels |  |
+| Independent variable | Levels | Description |
 | :---- | :---- | ----- |
-| TODO |  |  |
+| Different algorithms | 3 |  |
+| Data Types | 2 | Byte, Integer, Strings, Char, Boolean|
+| Warm-up (yes or not) | 2 | |
 
-Explicitly identify the dependent variable(s) (i.e., what you measure):
+---
 
 | Dependent variable | Measurement Scale |  |
 | :---- | :---- | ----- |
-| TODO |  |  |
+| Time to complete the sorting | milliseconds |  |
+| CPU usage | percentage | |
+| RAM usage | percentage | |
 
-Explicitly identify any important control variable(s) (i.e., what you keep constant): Note that you do *not* need to spell out items that you do not expect to make a *significant* difference\! E.g., do not list room temperature unless you believe that minor differences have an impact\! Only list variables here that you think are important to keep at a certain level.
+---
 
 | Control variable | Fixed Value |  |
 | :---- | :---- | ----- |
-| TODO |  |  |
+| Idle CPU usage | depends from the machine | |
+| Idle RAM usage | depends from the machine | |
+| Current storage availlable space | depends from the machine | |
+| Number of active processes | depends from the machine | |
+| Computer HW | i7 | |
+| Power save mode (enabled or not) | 1 | |
+
 
 ## 2.2 Design
 
@@ -44,7 +54,7 @@ Check off the characteristics of your experimental design:
 
 **Type of Study** (check one):
 
-| ⃞   Observational Study | ⃞   Quasi-Experiment | ⃞   Experiment |
+| [ ] Observational Study | [ ] Quasi-Experiment | [x] Experiment |
 | :---- | :---- | :---- |
 
 **Number of Factors** (check one):
@@ -56,7 +66,10 @@ Explain, (1) in text using terminology from the book and lectures **and** (2) wi
 
 ## 2.3 Apparatus and Materials
 
-Describe in sufficient detail any relevant “props” that you used in your experiment. This could be the computer you used (exact model and specification), the software used (URL, version numbers), the way you measured, e.g., time (A stopwatch? A background process on the computer that got automatically triggered?). Omit needless detail (e.g., think whether details like the size of the table the laptop was placed on, or the hard disk size, might have affected your results or not).
+> Describe in sufficient detail any relevant “props” that you used in your experiment. This could be the computer you used (exact model and specification), the software used (URL, version numbers), the way you measured, e.g., time (A stopwatch? A background process on the computer that got automatically triggered?). Omit needless detail (e.g., think whether details like the size of the table the laptop was placed on, or the hard disk size, might have affected your results or not).
+
+
+
 
 ## 2.4 Procedure
 
