@@ -1,4 +1,0 @@
-BubbleSortWhileNeeded took, on an average of 10 attempts: 	344181810 ns
-BubbleSortUntilNoChange took, on an average of 10 attempts: 	677595420 ns
-QuickSortGPT took, on an average of 10 attempts: 		1853330 ns
-SelectionSortGPT took, on an average of 10 attempts: 		67605140 ns

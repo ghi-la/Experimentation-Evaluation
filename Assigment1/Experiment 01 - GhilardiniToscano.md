@@ -10,11 +10,12 @@
 
 > Introduce the topic of investigation to the reader and motivate why you did the experiment. Note that in our case, writing “because I was told to by the course instructor” is not a valid answer. Please assume that you are trying to answer a certain relevant question and motivate its relevance. (In a “real” study report, you would need to also discuss any relevant prior research results here. Given our setting, however, we skip any “related work” consideration.) Your final paragraph of the introduction should outline your proposed experiment.
 
-Hypotheses:
+Hypothesis
 ---
+>
 > Write down your (falsifiable\!) hypotheses here. Each hypothesis must include **independent** and your **dependent** variables. You must write down your hypotheses **before** you do your experiment\! |
 
-QuickSort algorithm is the best in terms of performances since his complexity is $O(n*logn)$; compared to BoubleSort $O(n^2)$ and Selection Sort $O(n^2)$.
+QuickSort algorithm is the best in terms of performances since his complexity is $O(n*logn)$; compared to BoubleSort $O(n^2)$ and Selection Sort $O(n^2)$. We expect this behaviour for every data type, array size and starting array order.
 
 # 2\. Method
 
@@ -25,8 +26,8 @@ In the following subsections, describe everything that a reader would need to re
 | Independent variable | Levels | Description |
 | :---- | :---- | ----- |
 | Different algorithms | 4 | 4 different algorithms |
-| Data Types | 3 | Integer, Char, Boolean|
-| Size of the array | 2 | Integer number |
+| Data Types | 3 | Integer (4 bytes), Char (2 byte), Boolean (1 bit)|
+| Size of the array | 2 | Integer number, we selected 10'000 and 50'000 |
 | Starting array order | 2 | If the initial array is already sorted, or not |
 
 ---
@@ -42,7 +43,6 @@ In the following subsections, describe everything that a reader would need to re
 | Number of active processes | depends from the machine | |
 | Computer HW, Os, JDK | i7 | |
 | Power save mode (enabled or not) | 1 | |
-
 
 ## 2.2 Design
 
@@ -64,9 +64,6 @@ Explain, (1) in text using terminology from the book and lectures **and** (2) wi
 
 > Describe in sufficient detail any relevant “props” that you used in your experiment. This could be the computer you used (exact model and specification), the software used (URL, version numbers), the way you measured, e.g., time (A stopwatch? A background process on the computer that got automatically triggered?). Omit needless detail (e.g., think whether details like the size of the table the laptop was placed on, or the hard disk size, might have affected your results or not).
 
-
-
-
 ## 2.4 Procedure
 
 Describe how you used your props and/or the participants to perform your actual experiment, i.e., how you actually carried out a single experimental run. What was done to the participants? What did they have to do? How long did each session take (unless this is an actual dependent variable)? If you did not have participants, explain, e.g., what software was started by whom in what order.
@@ -81,7 +78,7 @@ Instead, use appropriate visual summaries (such as **scatter plots**, **histogra
 
 ## 3.2 Descriptive Statistics
 
-For each group or condition, summarize the set of measured values with a "five-number summary": **minimum**, **first quartile**, **median**, **third quartile**, and **maximum**. 
+For each group or condition, summarize the set of measured values with a "five-number summary": **minimum**, **first quartile**, **median**, **third quartile**, and **maximum**.
 
 Make sure you explain – in your words – what these statistics mean “in plain English”, but don’t yet interpret them (this is for the Discussion section).
 
@@ -91,7 +88,7 @@ Make sure you explain – in your words – what these statistics mean “in pla
 
 Provide a brief restatement of the main results from the previous section, and if (or if not) these support your research hypothesis.
 
-If there is a discrepancy between your hypothesis and the results of your experiment, speculate about why you were unable to find evidence to support your hypothesis. 
+If there is a discrepancy between your hypothesis and the results of your experiment, speculate about why you were unable to find evidence to support your hypothesis.
 
 ## 4.2 Limitations and Threats to Validity
 
@@ -115,4 +112,3 @@ Before, during, and after the experiment you collected all kinds of data. Don't 
 If you only collected a small amount of data, put it in this Appendix right here.
 
 If you collected data in forms that are better kept in separate files, then zip up those files, and submit them as a "reproduction package" supporting this report.
-

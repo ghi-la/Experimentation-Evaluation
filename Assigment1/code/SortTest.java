@@ -1,4 +1,6 @@
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class SortTest {
@@ -12,41 +14,66 @@ public class SortTest {
         return array;
     }
 
-    public static long testBubbleSortWhileNeededInt(Integer[] array) {
-        BubbleSortWhileNeeded<Integer> bubbleSortWhile = new BubbleSortWhileNeeded<>();
+    public static Integer[] generateSortedIntArray(int size) {
+        Integer[] array = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = i;
+        }
+        return array;
+    }
+
+    public static char[] generateRandomCharArray(int size) {
+        Random random = new Random();
+        char[] array = new char[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = (char) (random.nextInt(26) + 'a');
+        }
+        return array;
+    }
+
+    public static char[] generateSortedCharArray(int size) {
+        char[] array = new char[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = (char) (i + 'a');
+        }
+        return array;
+    }
+
+    public static <T extends Comparable<T>> long timeBubbleSortWhileNeeded(T[] array) {
+        BubbleSortWhileNeeded<T> bubbleSortWhile = new BubbleSortWhileNeeded<>();
         long startTime = System.nanoTime();
-        bubbleSortWhile.sort(array.clone());
+        bubbleSortWhile.sort(array);
         long endTime = System.nanoTime();
         return endTime - startTime;
     }
 
-    public static long testBubbleSortUntilNoChangeInt(Integer[] array) {
-        BubbleSortUntilNoChange<Integer> bubbleSortNoChange = new BubbleSortUntilNoChange<>();
+    public static <T extends Comparable<T>> long timeBubbleSortUntilNoChange(T[] array) {
+        BubbleSortUntilNoChange<T> bubbleSortNoChange = new BubbleSortUntilNoChange<>();
         long startTime = System.nanoTime();
-        bubbleSortNoChange.sort(array.clone());
+        bubbleSortNoChange.sort(array);
         long endTime = System.nanoTime();
         return endTime - startTime;
     }
 
-    public static long testQuickSortGPTInt(Integer[] array) {
-        QuickSortGPT<Integer> quickSort = new QuickSortGPT<>();
+    public static <T extends Comparable<T>> long timeQuickSortGPT(T[] array) {
+        QuickSortGPT<T> quickSort = new QuickSortGPT<>();
         long startTime = System.nanoTime();
-        quickSort.sort(array.clone());
+        quickSort.sort(array);
         long endTime = System.nanoTime();
         return endTime - startTime;
     }
 
-    public static long testSelectionSortGPTInt(Integer[] array) {
-        SelectionSortGPT<Integer> selectionSort = new SelectionSortGPT<>();
+    public static <T extends Comparable<T>> long timeSelectionSortGPT(T[] array) {
+        SelectionSortGPT<T> selectionSort = new SelectionSortGPT<>();
         long startTime = System.nanoTime();
-        selectionSort.sort(array.clone());
+        selectionSort.sort(array);
         long endTime = System.nanoTime();
         return endTime - startTime;
     }
 
     public static void main(String[] args) {
-        int arraySize = 10000;
-        int repetitions = 10;
+        int arraySize = 1000;
+        int repetitions = 100;
         Integer[] array;
         array = generateRandomIntArray(arraySize);
 
@@ -55,23 +82,51 @@ public class SortTest {
         Long[] intResultsQuickSortGPT = new Long[repetitions];
         Long[] intResultsSelectionSortGPT = new Long[repetitions];
 
+        System.out.println("Starting bubble sort while needed");
         for (int i = 0; i < repetitions; i++) {
-            intResultsBubbleSortWhileNeeded[i] = testBubbleSortWhileNeededInt(array.clone());
-            intResultsBubbleSortUntilNoChange[i] = testBubbleSortUntilNoChangeInt(array.clone());
-            intResultsQuickSortGPT[i] = testQuickSortGPTInt(array.clone());
-            intResultsSelectionSortGPT[i] = testSelectionSortGPTInt(array.clone());
+            intResultsBubbleSortWhileNeeded[i] = timeBubbleSortWhileNeeded(array.clone());
         }
 
-        System.out.println("BubbleSortWhileNeeded took, on an average of " + repetitions + " attempts: \t"
-                + (Arrays.stream(intResultsBubbleSortWhileNeeded).reduce(0L, Long::sum) / repetitions) + " ns");
-        System.out.println("BubbleSortUntilNoChange took, on an average of " + repetitions + " attempts: \t"
-                + (Arrays.stream(intResultsBubbleSortUntilNoChange).reduce(0L, Long::sum) / repetitions) + " ns");
-        System.out.println(
-                "QuickSortGPT took, on an average of " + repetitions + " attempts: \t\t"
-                        + (Arrays.stream(intResultsQuickSortGPT).reduce(0L, Long::sum) / repetitions)
-                        + " ns");
-        System.out.println("SelectionSortGPT took, on an average of " + repetitions + " attempts: \t\t"
-                + (Arrays.stream(intResultsSelectionSortGPT).reduce(0L, Long::sum) / repetitions) + " ns");
+        System.out.println("Starting bubble sort until no change");
+        for (int i = 0; i < repetitions; i++) {
+            intResultsBubbleSortUntilNoChange[i] = timeBubbleSortUntilNoChange(array.clone());
+        }
+
+        System.out.println("Starting quick sort GPT");
+        for (int i = 0; i < repetitions; i++) {
+            intResultsQuickSortGPT[i] = timeQuickSortGPT(array.clone());
+        }
+
+        System.out.println("Starting selection sort GPT");
+        for (int i = 0; i < repetitions; i++) {
+            intResultsSelectionSortGPT[i] = timeSelectionSortGPT(array.clone());
+        }
+
+        try {
+            String filepath = "../results/int_" + arraySize + "_results.csv";
+            File results = new File(filepath);
+
+            if (results.createNewFile()) {
+                System.out.println("File created: " + results.getName());
+
+            } else {
+                System.out.println("File already exists.");
+            }
+
+            FileWriter writer = new FileWriter(filepath);
+            writer.append("BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
+            for (int i = 0; i < repetitions; i++) {
+                writer.append(intResultsBubbleSortWhileNeeded[i].toString()).append(",")
+                        .append(intResultsBubbleSortUntilNoChange[i].toString()).append(",")
+                        .append(intResultsQuickSortGPT[i].toString()).append(",")
+                        .append(intResultsSelectionSortGPT[i].toString()).append("\n");
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // public static void testIntArray() {
