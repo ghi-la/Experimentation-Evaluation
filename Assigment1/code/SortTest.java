@@ -22,9 +22,9 @@ public class SortTest {
         return array;
     }
 
-    public static char[] generateRandomCharArray(int size) {
+    public static Character[] generateRandomCharArray(int size) {
         Random random = new Random();
-        char[] array = new char[size];
+        Character[] array = new Character[size];
         for (int i = 0; i < size; i++) {
             array[i] = (char) (random.nextInt(26) + 'a');
         }
@@ -35,6 +35,23 @@ public class SortTest {
         char[] array = new char[size];
         for (int i = 0; i < size; i++) {
             array[i] = (char) (i + 'a');
+        }
+        return array;
+    }
+
+    public static Boolean[] generateRandomBooleanArray(int size) {
+        Random random = new Random();
+        Boolean[] array = new Boolean[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = random.nextBoolean();
+        }
+        return array;
+    }
+
+    public static Boolean[] generateSortedBooleanArray(int size) {
+        Boolean[] array = new Boolean[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = i < size / 2;
         }
         return array;
     }
@@ -72,97 +89,151 @@ public class SortTest {
     }
 
     public static void main(String[] args) {
-        int arraySize = 1000;
+        int arraySize = 10000;
         int repetitions = 100;
-        Integer[] array;
-        array = generateRandomIntArray(arraySize);
+        Integer[] intArray;
+        Character[] charArray;
+        Boolean[] boolArray;
+
+        intArray = generateRandomIntArray(arraySize);
+        charArray = generateRandomCharArray(arraySize);
+        boolArray = generateRandomBooleanArray(arraySize);
 
         Long[] intResultsBubbleSortWhileNeeded = new Long[repetitions];
         Long[] intResultsBubbleSortUntilNoChange = new Long[repetitions];
         Long[] intResultsQuickSortGPT = new Long[repetitions];
         Long[] intResultsSelectionSortGPT = new Long[repetitions];
 
-        System.out.println("Starting bubble sort while needed");
+        Long[] charResultsBubbleSortWhileNeeded = new Long[repetitions];
+        Long[] charResultsBubbleSortUntilNoChange = new Long[repetitions];
+        Long[] charResultsQuickSortGPT = new Long[repetitions];
+        Long[] charResultsSelectionSortGPT = new Long[repetitions];
+
+        Long[] boolResultsBubbleSortWhileNeeded = new Long[repetitions];
+        Long[] boolResultsBubbleSortUntilNoChange = new Long[repetitions];
+        Long[] boolResultsQuickSortGPT = new Long[repetitions];
+        Long[] boolResultsSelectionSortGPT = new Long[repetitions];
+
+        System.out.println("Starting bubble sort while needed for integers");
         for (int i = 0; i < repetitions; i++) {
-            intResultsBubbleSortWhileNeeded[i] = timeBubbleSortWhileNeeded(array.clone());
+            intResultsBubbleSortWhileNeeded[i] = timeBubbleSortWhileNeeded(intArray.clone());
         }
 
-        System.out.println("Starting bubble sort until no change");
+        System.out.println("Starting bubble sort until no change for integers");
         for (int i = 0; i < repetitions; i++) {
-            intResultsBubbleSortUntilNoChange[i] = timeBubbleSortUntilNoChange(array.clone());
+            intResultsBubbleSortUntilNoChange[i] = timeBubbleSortUntilNoChange(intArray.clone());
         }
 
-        System.out.println("Starting quick sort GPT");
+        System.out.println("Starting quick sort GPT for integers");
         for (int i = 0; i < repetitions; i++) {
-            intResultsQuickSortGPT[i] = timeQuickSortGPT(array.clone());
+            intResultsQuickSortGPT[i] = timeQuickSortGPT(intArray.clone());
         }
 
-        System.out.println("Starting selection sort GPT");
+        System.out.println("Starting selection sort GPT for integers");
         for (int i = 0; i < repetitions; i++) {
-            intResultsSelectionSortGPT[i] = timeSelectionSortGPT(array.clone());
+            intResultsSelectionSortGPT[i] = timeSelectionSortGPT(intArray.clone());
+        }
+
+        System.out.println("Starting bubble sort while needed for chars");
+        for (int i = 0; i < repetitions; i++) {
+            charResultsBubbleSortWhileNeeded[i] = timeBubbleSortWhileNeeded(charArray.clone());
+        }
+
+        System.out.println("Starting bubble sort until no change for chars");
+        for (int i = 0; i < repetitions; i++) {
+            charResultsBubbleSortUntilNoChange[i] = timeBubbleSortUntilNoChange(charArray.clone());
+        }
+
+        System.out.println("Starting quick sort GPT for chars");
+        for (int i = 0; i < repetitions; i++) {
+            charResultsQuickSortGPT[i] = timeQuickSortGPT(charArray.clone());
+        }
+
+        System.out.println("Starting selection sort GPT for chars");
+        for (int i = 0; i < repetitions; i++) {
+            charResultsSelectionSortGPT[i] = timeSelectionSortGPT(charArray.clone());
+        }
+
+        System.out.println("Starting bubble sort while needed for booleans");
+        for (int i = 0; i < repetitions; i++) {
+            boolResultsBubbleSortWhileNeeded[i] = timeBubbleSortWhileNeeded(boolArray.clone());
+        }
+
+        System.out.println("Starting bubble sort until no change for booleans");
+        for (int i = 0; i < repetitions; i++) {
+            boolResultsBubbleSortUntilNoChange[i] = timeBubbleSortUntilNoChange(boolArray.clone());
+        }
+
+        System.out.println("Starting quick sort GPT for booleans");
+        for (int i = 0; i < repetitions; i++) {
+            boolResultsQuickSortGPT[i] = timeQuickSortGPT(boolArray.clone());
+        }
+
+        System.out.println("Starting selection sort GPT for booleans");
+        for (int i = 0; i < repetitions; i++) {
+            boolResultsSelectionSortGPT[i] = timeSelectionSortGPT(boolArray.clone());
         }
 
         try {
-            String filepath = "../results/int_" + arraySize + "_results.csv";
-            File results = new File(filepath);
+            String intFilepath = "../results/int_" + arraySize + "_results.csv";
+            File intResultsFile = new File(intFilepath);
 
-            if (results.createNewFile()) {
-                System.out.println("File created: " + results.getName());
-
+            if (intResultsFile.createNewFile()) {
+                System.out.println("File created: " + intResultsFile.getName());
             } else {
                 System.out.println("File already exists.");
             }
 
-            FileWriter writer = new FileWriter(filepath);
-            writer.append("BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
+            FileWriter intWriter = new FileWriter(intFilepath);
+            intWriter.append("BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
             for (int i = 0; i < repetitions; i++) {
-                writer.append(intResultsBubbleSortWhileNeeded[i].toString()).append(",")
+                intWriter.append(intResultsBubbleSortWhileNeeded[i].toString()).append(",")
                         .append(intResultsBubbleSortUntilNoChange[i].toString()).append(",")
                         .append(intResultsQuickSortGPT[i].toString()).append(",")
                         .append(intResultsSelectionSortGPT[i].toString()).append("\n");
             }
-            writer.close();
+            intWriter.close();
+
+            String charFilepath = "../results/char_" + arraySize + "_results.csv";
+            File charResultsFile = new File(charFilepath);
+
+            if (charResultsFile.createNewFile()) {
+                System.out.println("File created: " + charResultsFile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+
+            FileWriter charWriter = new FileWriter(charFilepath);
+            charWriter.append("BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
+            for (int i = 0; i < repetitions; i++) {
+                charWriter.append(charResultsBubbleSortWhileNeeded[i].toString()).append(",")
+                        .append(charResultsBubbleSortUntilNoChange[i].toString()).append(",")
+                        .append(charResultsQuickSortGPT[i].toString()).append(",")
+                        .append(charResultsSelectionSortGPT[i].toString()).append("\n");
+            }
+            charWriter.close();
+
+            String boolFilepath = "../results/bool_" + arraySize + "_results.csv";
+            File boolResultsFile = new File(boolFilepath);
+
+            if (boolResultsFile.createNewFile()) {
+                System.out.println("File created: " + boolResultsFile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+
+            FileWriter boolWriter = new FileWriter(boolFilepath);
+            boolWriter.append("BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
+            for (int i = 0; i < repetitions; i++) {
+                boolWriter.append(boolResultsBubbleSortWhileNeeded[i].toString()).append(",")
+                        .append(boolResultsBubbleSortUntilNoChange[i].toString()).append(",")
+                        .append(boolResultsQuickSortGPT[i].toString()).append(",")
+                        .append(boolResultsSelectionSortGPT[i].toString()).append("\n");
+            }
+            boolWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-    // public static void testIntArray() {
-    // // array generation
-
-    // // testing BubbleSortWhileNeeded
-    // BubbleSortWhileNeeded<Integer> bubbleSortWhile = new
-    // BubbleSortWhileNeeded<>();
-    // long startTime = System.nanoTime();
-    // bubbleSortWhile.sort(array.clone());
-    // long endTime = System.nanoTime();
-    // System.out.println("BubbleSortWhileNeeded took: " + (endTime - startTime) + "
-    // ns");
-
-    // // testing BubbleSortUntilNoChange
-    // BubbleSortUntilNoChange<Integer> bubbleSortNoChange = new
-    // BubbleSortUntilNoChange<>();
-    // startTime = System.nanoTime();
-    // bubbleSortNoChange.sort(array.clone());
-    // endTime = System.nanoTime();
-    // System.out.println("BubbleSortUntilNoChange took: " + (endTime - startTime) +
-    // " ns");
-
-    // // testing QuickSortGPT
-    // QuickSortGPT<Integer> quickSort = new QuickSortGPT<>();
-    // startTime = System.nanoTime();
-    // quickSort.sort(array.clone());
-    // endTime = System.nanoTime();
-    // System.out.println("QuickSortGPT took: " + (endTime - startTime) + " ns");
-
-    // // Testing SelectionSortGPT
-    // SelectionSortGPT<Integer> selectionSort = new SelectionSortGPT<>();
-    // startTime = System.nanoTime();
-    // selectionSort.sort(array.clone());
-    // endTime = System.nanoTime();
-    // System.out.println("SelectionSortGPT took: " + (endTime - startTime) + "
-    // ns");
-    // }
 }
