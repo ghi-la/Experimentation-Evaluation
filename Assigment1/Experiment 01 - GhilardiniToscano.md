@@ -24,27 +24,23 @@ In the following subsections, describe everything that a reader would need to re
 
 | Independent variable | Levels | Description |
 | :---- | :---- | ----- |
-| Different algorithms | 3 |  |
-| Data Types | 2 | Byte, Integer, Strings, Char, Boolean|
-| Warm-up (yes or not) | 2 | |
+| Different algorithms | 4 | 4 different algorithms |
+| Data Types | 3 | Integer, Char, Boolean|
+| Size of the array | 2 | Integer number |
+| Starting array order | 2 | If the initial array is already sorted, or not |
 
 ---
 
 | Dependent variable | Measurement Scale |  |
 | :---- | :---- | ----- |
 | Time to complete the sorting | milliseconds |  |
-| CPU usage | percentage | |
-| RAM usage | percentage | |
 
 ---
 
 | Control variable | Fixed Value |  |
 | :---- | :---- | ----- |
-| Idle CPU usage | depends from the machine | |
-| Idle RAM usage | depends from the machine | |
-| Current storage availlable space | depends from the machine | |
 | Number of active processes | depends from the machine | |
-| Computer HW | i7 | |
+| Computer HW, Os, JDK | i7 | |
 | Power save mode (enabled or not) | 1 | |
 
 
@@ -59,7 +55,7 @@ Check off the characteristics of your experimental design:
 
 **Number of Factors** (check one):
 
-| ⃞   Single-Factor Design | ⃞   Multi-Factor Design | ⃞   Other |
+| ⃞   Single-Factor Design | x   Multi-Factor Design | ⃞   Other |
 | :---- | :---- | :---- |
 
 Explain, (1) in text using terminology from the book and lectures **and** (2) with a figure (similar to those used in Chapter 3 of the Field & Hole book), what kind of experiment you did.
