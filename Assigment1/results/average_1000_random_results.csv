@@ -1,0 +1,4 @@
+DataType,BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT
+int,2164473,4145653,210060,820500
+char,2394692,3445909,462704,785596
+bool,2320611,2899768,1630615,2583449

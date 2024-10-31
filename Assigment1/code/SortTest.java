@@ -89,15 +89,21 @@ public class SortTest {
     }
 
     public static void main(String[] args) {
-        int arraySize = 10000;
+        int arraySize = 1000;
         int repetitions = 100;
         Integer[] intArray;
         Character[] charArray;
         Boolean[] boolArray;
 
-        intArray = generateSortedIntArray(arraySize);
-        charArray = generateSortedCharArray(arraySize);
-        boolArray = generateSortedBooleanArray(arraySize);
+        // random arrays
+        intArray = generateRandomIntArray(arraySize);
+        charArray = generateRandomCharArray(arraySize);
+        boolArray = generateRandomBooleanArray(arraySize);
+
+        // sorted arrays
+        // intArray = generateSortedIntArray(arraySize);
+        // charArray = generateSortedCharArray(arraySize);
+        // boolArray = generateSortedBooleanArray(arraySize);
 
         Long[] intResultsBubbleSortWhileNeeded = new Long[repetitions];
         Long[] intResultsBubbleSortUntilNoChange = new Long[repetitions];
@@ -175,7 +181,8 @@ public class SortTest {
         }
 
         try {
-            String intFilepath = "../results/int_" + arraySize + "_sorted_results.csv";
+            String intFilepath = "../results/int_" + arraySize + "_random_results.csv";
+            // String intFilepath = "../results/int_" + arraySize + "_sorted_results.csv";
             File intResultsFile = new File(intFilepath);
 
             if (intResultsFile.createNewFile()) {
@@ -194,7 +201,8 @@ public class SortTest {
             }
             intWriter.close();
 
-            String charFilepath = "../results/char_" + arraySize + "_sorted_results.csv";
+            String charFilepath = "../results/char_" + arraySize + "_random_results.csv";
+            // String charFilepath = "../results/char_" + arraySize + "_sorted_results.csv";
             File charResultsFile = new File(charFilepath);
 
             if (charResultsFile.createNewFile()) {
@@ -213,7 +221,8 @@ public class SortTest {
             }
             charWriter.close();
 
-            String boolFilepath = "../results/bool_" + arraySize + "_sorted_results.csv";
+            String boolFilepath = "../results/bool_" + arraySize + "_random_results.csv";
+            // String boolFilepath = "../results/bool_" + arraySize + "_sorted_results.csv";
             File boolResultsFile = new File(boolFilepath);
 
             if (boolResultsFile.createNewFile()) {
@@ -235,5 +244,84 @@ public class SortTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // calculate average for each combination and put them in a new file average.csv
+
+        long intBubbleSortWhileNeededSum = 0;
+        long intBubbleSortUntilNoChangeSum = 0;
+        long intQuickSortGPTSum = 0;
+        long intSelectionSortGPTSum = 0;
+
+        long charBubbleSortWhileNeededSum = 0;
+        long charBubbleSortUntilNoChangeSum = 0;
+        long charQuickSortGPTSum = 0;
+        long charSelectionSortGPTSum = 0;
+
+        long boolBubbleSortWhileNeededSum = 0;
+        long boolBubbleSortUntilNoChangeSum = 0;
+        long boolQuickSortGPTSum = 0;
+        long boolSelectionSortGPTSum = 0;
+
+        try {
+            String averageFilepath = "../results/average_" + arraySize + "_random_results.csv";
+            File averageResultsFile = new File(averageFilepath);
+
+            if (averageResultsFile.createNewFile()) {
+                System.out.println("File created: " + averageResultsFile.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+
+            FileWriter averageWriter = new FileWriter(averageFilepath);
+            // Write the header row
+            averageWriter
+                    .append("DataType,BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
+
+            // Calculate sums for each data type over repetitions
+            for (int i = 0; i < repetitions; i++) {
+                intBubbleSortWhileNeededSum += intResultsBubbleSortWhileNeeded[i];
+                intBubbleSortUntilNoChangeSum += intResultsBubbleSortUntilNoChange[i];
+                intQuickSortGPTSum += intResultsQuickSortGPT[i];
+                intSelectionSortGPTSum += intResultsSelectionSortGPT[i];
+
+                charBubbleSortWhileNeededSum += charResultsBubbleSortWhileNeeded[i];
+                charBubbleSortUntilNoChangeSum += charResultsBubbleSortUntilNoChange[i];
+                charQuickSortGPTSum += charResultsQuickSortGPT[i];
+                charSelectionSortGPTSum += charResultsSelectionSortGPT[i];
+
+                boolBubbleSortWhileNeededSum += boolResultsBubbleSortWhileNeeded[i];
+                boolBubbleSortUntilNoChangeSum += boolResultsBubbleSortUntilNoChange[i];
+                boolQuickSortGPTSum += boolResultsQuickSortGPT[i];
+                boolSelectionSortGPTSum += boolResultsSelectionSortGPT[i];
+            }
+
+            // Write averages for each data type in one file
+            // Integer averages row
+            averageWriter.append("int,")
+                    .append(String.valueOf(intBubbleSortWhileNeededSum / repetitions)).append(",")
+                    .append(String.valueOf(intBubbleSortUntilNoChangeSum / repetitions)).append(",")
+                    .append(String.valueOf(intQuickSortGPTSum / repetitions)).append(",")
+                    .append(String.valueOf(intSelectionSortGPTSum / repetitions)).append("\n");
+
+            // Char averages row
+            averageWriter.append("char,")
+                    .append(String.valueOf(charBubbleSortWhileNeededSum / repetitions)).append(",")
+                    .append(String.valueOf(charBubbleSortUntilNoChangeSum / repetitions)).append(",")
+                    .append(String.valueOf(charQuickSortGPTSum / repetitions)).append(",")
+                    .append(String.valueOf(charSelectionSortGPTSum / repetitions)).append("\n");
+
+            // Bool averages row
+            averageWriter.append("bool,")
+                    .append(String.valueOf(boolBubbleSortWhileNeededSum / repetitions)).append(",")
+                    .append(String.valueOf(boolBubbleSortUntilNoChangeSum / repetitions)).append(",")
+                    .append(String.valueOf(boolQuickSortGPTSum / repetitions)).append(",")
+                    .append(String.valueOf(boolSelectionSortGPTSum / repetitions)).append("\n");
+
+            averageWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
