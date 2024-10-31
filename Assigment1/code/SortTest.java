@@ -31,8 +31,8 @@ public class SortTest {
         return array;
     }
 
-    public static char[] generateSortedCharArray(int size) {
-        char[] array = new char[size];
+    public static Character[] generateSortedCharArray(int size) {
+        Character[] array = new Character[size];
         for (int i = 0; i < size; i++) {
             array[i] = (char) (i + 'a');
         }
@@ -95,9 +95,9 @@ public class SortTest {
         Character[] charArray;
         Boolean[] boolArray;
 
-        intArray = generateRandomIntArray(arraySize);
-        charArray = generateRandomCharArray(arraySize);
-        boolArray = generateRandomBooleanArray(arraySize);
+        intArray = generateSortedIntArray(arraySize);
+        charArray = generateSortedCharArray(arraySize);
+        boolArray = generateSortedBooleanArray(arraySize);
 
         Long[] intResultsBubbleSortWhileNeeded = new Long[repetitions];
         Long[] intResultsBubbleSortUntilNoChange = new Long[repetitions];
@@ -175,7 +175,7 @@ public class SortTest {
         }
 
         try {
-            String intFilepath = "../results/int_" + arraySize + "_results.csv";
+            String intFilepath = "../results/int_" + arraySize + "_sorted_results.csv";
             File intResultsFile = new File(intFilepath);
 
             if (intResultsFile.createNewFile()) {
@@ -194,7 +194,7 @@ public class SortTest {
             }
             intWriter.close();
 
-            String charFilepath = "../results/char_" + arraySize + "_results.csv";
+            String charFilepath = "../results/char_" + arraySize + "_sorted_results.csv";
             File charResultsFile = new File(charFilepath);
 
             if (charResultsFile.createNewFile()) {
@@ -213,7 +213,7 @@ public class SortTest {
             }
             charWriter.close();
 
-            String boolFilepath = "../results/bool_" + arraySize + "_results.csv";
+            String boolFilepath = "../results/bool_" + arraySize + "_sorted_results.csv";
             File boolResultsFile = new File(boolFilepath);
 
             if (boolResultsFile.createNewFile()) {
