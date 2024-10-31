@@ -10,14 +10,17 @@
 </head>
 
 <body>
-
-    <canvas id="chartCanvas" style="padding: 100px;"></canvas>
     <input type="file" id="fileInput" accept=".csv" />
+    <canvas id="chartCanvas" style="padding: 50px;"></canvas>
+
 
     <script>
         document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 
+        let chartInstance = null;
+
         function handleFileUpload(event) {
+
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -36,11 +39,12 @@
             const data = lines.slice(1);
 
             const labels = Array.from({ length: data.length }, (_, i) => i + 1);
+            const colors = ['red', 'purple', 'cyan', 'green'];
             const datasets = headers.map((header, i) => ({
                 label: header,
                 data: data.map(row => parseFloat(row.split(',')[i].trim())),
                 fill: false,
-                borderColor: getRandomColor()
+                borderColor: colors[i]
             }));
 
             return { labels, datasets };
@@ -48,7 +52,12 @@
 
         function plotData({ labels, datasets }) {
             const ctx = document.getElementById('chartCanvas').getContext('2d');
-            new Chart(ctx, {
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
@@ -56,21 +65,20 @@
                 },
                 options: {
                     responsive: true,
+                    layout: {
+                        padding: {
+                            top: 20,
+                            right: 20,
+                            bottom: 20,
+                            left: 20
+                        }
+                    },
                     scales: {
-                        x: { title: { display: true, text: 'Row Number' } },
-                        y: { title: { display: true, text: 'Values' } }
+                        x: { title: { display: true, text: 'Iteration (#)' } },
+                        y: { title: { display: true, text: 'Time (ns)' } }
                     }
                 }
             });
-        }
-
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
         }
     </script>
 
