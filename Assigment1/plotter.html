@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta author="Toscano Sasha, Ghilardini Matteo">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Plottings</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <canvas id="chartCanvas" style="padding: 100px;"></canvas>
+    <input type="file" id="fileInput" accept=".csv" />
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const csvData = e.target.result;
+                    const parsedData = parseCSV(csvData);
+                    plotData(parsedData);
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function parseCSV(csvData) {
+            const lines = csvData.trim().split('\n');
+            const headers = lines[0].split(',').map(header => header.trim());
+            const data = lines.slice(1);
+
+            const labels = Array.from({ length: data.length }, (_, i) => i + 1);
+            const datasets = headers.map((header, i) => ({
+                label: header,
+                data: data.map(row => parseFloat(row.split(',')[i].trim())),
+                fill: false,
+                borderColor: getRandomColor()
+            }));
+
+            return { labels, datasets };
+        }
+
+        function plotData({ labels, datasets }) {
+            const ctx = document.getElementById('chartCanvas').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: 'Row Number' } },
+                        y: { title: { display: true, text: 'Values' } }
+                    }
+                }
+            });
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+
+</body>
+
+</html>
