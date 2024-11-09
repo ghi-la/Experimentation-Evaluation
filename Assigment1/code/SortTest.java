@@ -183,7 +183,31 @@ public class SortTest {
         }
     }
 
-    public static void runTests(int repetition, int arraySize) {
+    public static void runTests(int repetition, int arraySize, boolean warmUp) {
+        if (warmUp) {
+            // warm-up run
+            Integer[] warmUpIntArray = ArrayGenerator.randomIntArray(arraySize);
+            Character[] warmUpCharArray = ArrayGenerator.randomCharArray(arraySize);
+            Boolean[] warmUpBoolArray = ArrayGenerator.randomBooleanArray(arraySize);
+            for (int i = 0; i < repetition; i++) {
+                timeBubbleSortWhileNeeded(warmUpIntArray.clone());
+                timeBubbleSortUntilNoChange(warmUpIntArray.clone());
+                timeQuickSortGPT(warmUpIntArray.clone());
+                timeSelectionSortGPT(warmUpIntArray.clone());
+
+                timeBubbleSortWhileNeeded(warmUpCharArray.clone());
+                timeBubbleSortUntilNoChange(warmUpCharArray.clone());
+                timeQuickSortGPT(warmUpCharArray.clone());
+                timeSelectionSortGPT(warmUpCharArray.clone());
+
+                timeBubbleSortWhileNeeded(warmUpBoolArray.clone());
+                timeBubbleSortUntilNoChange(warmUpBoolArray.clone());
+                timeQuickSortGPT(warmUpBoolArray.clone());
+                timeSelectionSortGPT(warmUpBoolArray.clone());
+            }
+            return;
+        }
+
         // random arrays generation
         Integer[] randomIntArray = ArrayGenerator.randomIntArray(arraySize);
         String randomIntFilepath = "../results/int_" + arraySize + "_random_results.csv";
@@ -195,6 +219,8 @@ public class SortTest {
         String randomBoolFilepath = "../results/bool_" + arraySize + "_random_results.csv";
 
         String randomAverageFilepath = "../results/average_" + arraySize + "_random_results.csv";
+
+        System.out.println("Random arrays:");
 
         // test with random arrays
         performSortingTests(repetition, randomIntArray, randomCharArray, randomBoolArray, randomIntFilepath,
@@ -215,6 +241,8 @@ public class SortTest {
 
         String sortedAverageFilepath = "../results/average_" + arraySize + "_sorted_results.csv";
 
+        System.out.println("Sorted arrays:");
+
         // test with sorted arrays
         performSortingTests(repetition, sortedIntArray, sortedCharArray, sortedBoolArray, sortedIntFilepath,
                 sortedCharFilepath, sortedBoolFilepath, sortedAverageFilepath);
@@ -234,6 +262,8 @@ public class SortTest {
 
         String reverseSortedAverageFilepath = "../results/average_" + arraySize + "_reverse_sorted_results.csv";
 
+        System.out.println("Reverse sorted arrays:");
+
         // test with reverse sorted arrays
         performSortingTests(repetition, reverseSortedIntArray, reverseSortedCharArray, reverseSortedBoolArray,
                 reverseSortedIntFilepath, reverseSortedCharFilepath, reverseSortedBoolFilepath,
@@ -246,12 +276,12 @@ public class SortTest {
 
     public static void main(String[] args) {
         // warm-up run
-        runTests(10, 1000);
+        runTests(10, 1000, true);
 
         // run 100 tests using arrays of size 1000
-        runTests(100, 1000);
+        runTests(100, 1000, false);
 
         // run 100 tests using arrays of size 10000
-        runTests(100, 10000);
+        runTests(100, 10000, false);
     }
 }
