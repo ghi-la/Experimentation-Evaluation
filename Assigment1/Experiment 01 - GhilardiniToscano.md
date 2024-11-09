@@ -1,6 +1,6 @@
-# Your Title Here
-
-## Experiment 1, Experimentation & Evaluation 2024
+# What is the best performing sorting algorithm?
+## Experimental analysis commissioned by Bubble Inc 
+Experiment 1, Experimentation & Evaluation 2024
 
 # Abstract
 
@@ -94,7 +94,7 @@ We will run all experiments on a desktop computer with the following HW specs:
 
 The computer runs on Windows 10 as OS but all the experiments and the JDK are runned throught the WSL with Ubuntu 23.04.
 
-We are using as java version, OpenJDK 23.01. For all experiments performe, we save all metrics in a CSV file and plot them using the JavaScript API **chart.js** availlable on the website https://www.chartjs.org/.
+We are using as java version, OpenJDK 23.01. For all experiments performe, we save all metrics in a CSV file and to plot the data, we decided to use Microsoft Excel 365.
 
 To mesure the metrics of the experiments we use the java function `System.nanoTime()` and we save the value before and after the sorting; the elapsed time is so computed as `startTime-endTime`.
 
