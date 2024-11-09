@@ -154,11 +154,6 @@ public class SortTest {
             averageWriter
                     .append("DataType,BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n");
 
-            // Calculate sums for each data type over repetitions
-            for (int i = 0; i < repetitions; i++) {
-
-            }
-
             // Write averages for each data type in one file
             // Integer averages row
             averageWriter.append("int,")
@@ -250,6 +245,9 @@ public class SortTest {
     }
 
     public static void main(String[] args) {
+        // warm-up run
+        runTests(10, 1000);
+
         // run 100 tests using arrays of size 1000
         runTests(100, 1000);
 
