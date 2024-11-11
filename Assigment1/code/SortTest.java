@@ -1,8 +1,19 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * This class is used to test the performance of the implemented sorting
+ * algorithms.
+ * The tests are run on arrays of integers, characters and booleans.
+ * The arrays are generated randomly, sorted and reverse sorted.
+ * The tests are run multiple times for each type of array and the results are 
+ * stored in csv files.
+ * The average time taken to sort each type of array is also stored in a csv
+ * file.
+ * @author Toscano Sasha, Ghilardini Matteo
+ * @version 11.11.2024
+ */
 public class SortTest {
-
     public static <T extends Comparable<T>> long timeBubbleSortWhileNeeded(T[] array) {
         BubbleSortWhileNeeded<T> bubbleSortWhile = new BubbleSortWhileNeeded<>();
         long startTime = System.nanoTime();
@@ -74,7 +85,6 @@ public class SortTest {
 
         long progress = 0;
         for (int i = 0; i < repetitions; i++) {
-
             // update arrays
             intResultsBubbleSortWhileNeeded[i] = timeBubbleSortWhileNeeded(intArray.clone());
             intResultsBubbleSortUntilNoChange[i] = timeBubbleSortUntilNoChange(intArray.clone());
@@ -113,7 +123,6 @@ public class SortTest {
         String header = "BubbleSortWhileNeeded,BubbleSortUntilNoChange,QuickSortGPT,SelectionSortGPT\n";
 
         try {
-
             FileWriter intWriter = new FileWriter(intFilepath);
             intWriter.append(header);
             for (int i = 0; i < repetitions; i++) {
@@ -180,7 +189,6 @@ public class SortTest {
 
     public static void runTests(int repetition, int arraySize, boolean warmUp) {
         if (warmUp) {
-
             // warm-up run
             Integer[] warmUpRandomIntArray = ArrayGenerator.randomIntArray(arraySize);
             String warmUpRandomIntFilepath = "../results/warmup_int_" + arraySize + "_random_results.csv";
@@ -262,7 +270,6 @@ public class SortTest {
 
         // ************************************************************
         // ************************************************************
-
     }
 
     public static void main(String[] args) {
