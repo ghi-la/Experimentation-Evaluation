@@ -295,9 +295,9 @@ public class SortTest {
         runTests(10, 1000, true);
 
         // run 100 tests using arrays of size 1000
-        // runTests(100, 1000, false);
+        runTests(100, 1000, false);
 
         // run 100 tests using arrays of size 10000
-        // runTests(100, 10000, false);
+        runTests(100, 10000, false);
     }
 }
