@@ -185,26 +185,42 @@ public class SortTest {
 
     public static void runTests(int repetition, int arraySize, boolean warmUp) {
         if (warmUp) {
+            // // warm-up run
+            // Integer[] warmUpIntArray = ArrayGenerator.randomIntArray(arraySize);
+            // Character[] warmUpCharArray = ArrayGenerator.randomCharArray(arraySize);
+            // Boolean[] warmUpBoolArray = ArrayGenerator.randomBooleanArray(arraySize);
+            // for (int i = 0; i < repetition; i++) {
+            // timeBubbleSortWhileNeeded(warmUpIntArray.clone());
+            // timeBubbleSortUntilNoChange(warmUpIntArray.clone());
+            // timeQuickSortGPT(warmUpIntArray.clone());
+            // timeSelectionSortGPT(warmUpIntArray.clone());
+
+            // timeBubbleSortWhileNeeded(warmUpCharArray.clone());
+            // timeBubbleSortUntilNoChange(warmUpCharArray.clone());
+            // timeQuickSortGPT(warmUpCharArray.clone());
+            // timeSelectionSortGPT(warmUpCharArray.clone());
+
+            // timeBubbleSortWhileNeeded(warmUpBoolArray.clone());
+            // timeBubbleSortUntilNoChange(warmUpBoolArray.clone());
+            // timeQuickSortGPT(warmUpBoolArray.clone());
+            // timeSelectionSortGPT(warmUpBoolArray.clone());
+            // }
+
             // warm-up run
-            Integer[] warmUpIntArray = ArrayGenerator.randomIntArray(arraySize);
-            Character[] warmUpCharArray = ArrayGenerator.randomCharArray(arraySize);
-            Boolean[] warmUpBoolArray = ArrayGenerator.randomBooleanArray(arraySize);
-            for (int i = 0; i < repetition; i++) {
-                timeBubbleSortWhileNeeded(warmUpIntArray.clone());
-                timeBubbleSortUntilNoChange(warmUpIntArray.clone());
-                timeQuickSortGPT(warmUpIntArray.clone());
-                timeSelectionSortGPT(warmUpIntArray.clone());
+            Integer[] warmUpRandomIntArray = ArrayGenerator.randomIntArray(arraySize);
+            String warmUpRandomIntFilepath = "../results/warmup_int_" + arraySize + "_random_results.csv";
 
-                timeBubbleSortWhileNeeded(warmUpCharArray.clone());
-                timeBubbleSortUntilNoChange(warmUpCharArray.clone());
-                timeQuickSortGPT(warmUpCharArray.clone());
-                timeSelectionSortGPT(warmUpCharArray.clone());
+            Character[] warmUpRandomCharArray = ArrayGenerator.randomCharArray(arraySize);
+            String warmUpRandomCharFilepath = "../results/warmup_char_" + arraySize + "_random_results.csv";
 
-                timeBubbleSortWhileNeeded(warmUpBoolArray.clone());
-                timeBubbleSortUntilNoChange(warmUpBoolArray.clone());
-                timeQuickSortGPT(warmUpBoolArray.clone());
-                timeSelectionSortGPT(warmUpBoolArray.clone());
-            }
+            Boolean[] warmUpRandomBoolArray = ArrayGenerator.randomBooleanArray(arraySize);
+            String warmUpRandomBoolFilepath = "../results/warmup_bool_" + arraySize + "_random_results.csv";
+
+            String warmUpRandomAverageFilepath = "../results/warmup_average_" + arraySize + "_random_results.csv";
+
+            performSortingTests(repetition, warmUpRandomIntArray, warmUpRandomCharArray, warmUpRandomBoolArray,
+                    warmUpRandomIntFilepath,
+                    warmUpRandomCharFilepath, warmUpRandomBoolFilepath, warmUpRandomAverageFilepath);
             return;
         }
 
@@ -279,9 +295,9 @@ public class SortTest {
         runTests(10, 1000, true);
 
         // run 100 tests using arrays of size 1000
-        runTests(100, 1000, false);
+        // runTests(100, 1000, false);
 
         // run 100 tests using arrays of size 10000
-        runTests(100, 10000, false);
+        // runTests(100, 10000, false);
     }
 }
