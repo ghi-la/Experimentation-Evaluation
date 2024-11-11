@@ -105,6 +105,7 @@ public class SortTest {
             boolQuickSortGPTSum += boolResultsQuickSortGPT[i];
             boolSelectionSortGPTSum += boolResultsSelectionSortGPT[i];
 
+            // feedback on progress
             progress = i * 100 / repetitions;
             System.out.println(progress + "% done");
         }
@@ -143,12 +144,6 @@ public class SortTest {
             }
             boolWriter.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-
             FileWriter averageWriter = new FileWriter(averageFilepath);
             // Write the header row
             averageWriter
@@ -185,26 +180,6 @@ public class SortTest {
 
     public static void runTests(int repetition, int arraySize, boolean warmUp) {
         if (warmUp) {
-            // // warm-up run
-            // Integer[] warmUpIntArray = ArrayGenerator.randomIntArray(arraySize);
-            // Character[] warmUpCharArray = ArrayGenerator.randomCharArray(arraySize);
-            // Boolean[] warmUpBoolArray = ArrayGenerator.randomBooleanArray(arraySize);
-            // for (int i = 0; i < repetition; i++) {
-            // timeBubbleSortWhileNeeded(warmUpIntArray.clone());
-            // timeBubbleSortUntilNoChange(warmUpIntArray.clone());
-            // timeQuickSortGPT(warmUpIntArray.clone());
-            // timeSelectionSortGPT(warmUpIntArray.clone());
-
-            // timeBubbleSortWhileNeeded(warmUpCharArray.clone());
-            // timeBubbleSortUntilNoChange(warmUpCharArray.clone());
-            // timeQuickSortGPT(warmUpCharArray.clone());
-            // timeSelectionSortGPT(warmUpCharArray.clone());
-
-            // timeBubbleSortWhileNeeded(warmUpBoolArray.clone());
-            // timeBubbleSortUntilNoChange(warmUpBoolArray.clone());
-            // timeQuickSortGPT(warmUpBoolArray.clone());
-            // timeSelectionSortGPT(warmUpBoolArray.clone());
-            // }
 
             // warm-up run
             Integer[] warmUpRandomIntArray = ArrayGenerator.randomIntArray(arraySize);
