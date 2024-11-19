@@ -4,10 +4,10 @@ export const isLoading = () => ({
 export const isLoaded = () => ({
   type: 'IS_LOADED',
 });
-export const openAlert = (payload: { severity: string; message: string }) => ({
-  type: 'OPEN_ALERT',
+export const openNotification = (payload: { severity: string; message: string }) => ({
+  type: 'OPEN_NOTIFICATION',
   payload,
 });
-export const closeAlert = () => ({
-  type: 'CLOSE_ALERT',
+export const closeNotification = () => ({
+  type: 'CLOSE_NOTIFICATION',
 });

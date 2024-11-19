@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  alert: {
+  notification: {
     isOpen: false,
     severity: 'success',
     message: '',
@@ -13,21 +13,24 @@ const appReducer = (state = INITIAL_STATE, action: any) => {
       return { ...state, isLoading: true };
     case 'IS_LOADED':
       return { ...state, isLoading: false };
-    case 'OPEN_ALERT':
+    case 'OPEN_NOTIFICATION':
       return {
         ...state,
-        alert: {
+        notification: {
           isOpen: true,
           severity: action.payload.severity,
           message: action.payload.message,
         },
       };
-    case 'CLOSE_ALERT':
+    case 'CLOSE_NOTIFICATION':
       return {
         ...state,
-        alert: INITIAL_STATE.alert,
+        notification: INITIAL_STATE.notification,
       };
     default:
       return state;
   }
 };
+
+
+export default appReducer;

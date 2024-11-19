@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import React from 'react';
+import AppWrapper from './appWrapper';
 
 export const metadata: Metadata = {
   title: 'Program Comprehension Survey',
@@ -13,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppWrapper>{children}</AppWrapper>
+      </body>
     </html>
   );
 }
