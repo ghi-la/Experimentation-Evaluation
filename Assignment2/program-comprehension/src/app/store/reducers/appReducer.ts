@@ -25,7 +25,10 @@ const appReducer = (state = INITIAL_STATE, action: any) => {
     case 'CLOSE_NOTIFICATION':
       return {
         ...state,
-        notification: INITIAL_STATE.notification,
+        notification: {
+          ...state.notification,
+          isOpen: false,
+        },
       };
     default:
       return state;
