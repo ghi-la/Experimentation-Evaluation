@@ -7,6 +7,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PageContainer from '../components/PageContainer';
 import { openNotification, setUser } from '../store/actions';
+import {
+  ageRanges,
+  codingFrequencyOptions,
+  professionalSectors,
+  programmingLanguagesList,
+  User,
+} from '../store/models/user';
 
 const FormPage = () => {
   const [codingFrequency, setCodingFrequency] = useState('');
@@ -31,56 +38,20 @@ const FormPage = () => {
         })
       );
     } else {
-      dispatch(
-        setUser({
-          username,
-          age,
-          professionalBackground,
-          codingFrequency,
-          programmingLanguages,
-        })
-      );
+      const user: User = {
+        name: username.split(' ')[0],
+        surname: username.split(' ')[1],
+        ageRange: age,
+        professionalBackground: professionalBackground,
+        codingFrequency: codingFrequency,
+        programmingLanguages: programmingLanguages,
+      };
+      dispatch(setUser(user));
 
-      Cookies.set('user', username, { expires: 0.5 / 24 }); // 0.5 hours = 30 minutes
+      Cookies.set('user', user.name, { expires: 0.5 / 24 }); // 0.5 hours = 30 minutes
       router.push('/survey');
     }
   };
-
-  const professionalSectors = [
-    'Education',
-    'Healthcare',
-    'Technology',
-    'Finance',
-    'Government',
-    'Arts and Entertainment',
-    'Science and Research',
-    'Other',
-  ];
-
-  const programmingLanguagesList = [
-    'JavaScript',
-    'Python',
-    'Java',
-    'C++',
-    'C#',
-    'Ruby',
-    'PHP',
-    'Swift',
-    'Go',
-    'Other',
-  ];
-
-  const codingFrequencyOptions = ['Never', 'Rarely', 'Often', 'Daily'];
-
-  const ageRanges = [
-    'Under 18',
-    '18-24',
-    '25-34',
-    '35-44',
-    '45-54',
-    '55-64',
-    '65 or older',
-  ];
 
   return (
     <PageContainer>
@@ -153,6 +124,10 @@ const FormPage = () => {
         >
           Submit
         </Button>
+        <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
+          By submitting this form, you agree that we can use your data for this
+          experiment (all data will be anonymized).
+        </Typography>
       </form>
     </PageContainer>
   );

@@ -1,6 +1,9 @@
-const INITIAL_STATE = {
-  username: '',
-  age: '',
+import { User } from '../models/user';
+
+const INITIAL_STATE: User = {
+  name: '',
+  surname: '',
+  ageRange: '',
   professionalBackground: '',
   codingFrequency: '',
   programmingLanguages: [],
