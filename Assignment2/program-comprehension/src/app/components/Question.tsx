@@ -30,10 +30,13 @@ const Question = ({
 
   return (
     <div>
-      <h1>Questions {index}</h1>
-      <p>{check}</p>
+      <h2>{test}</h2>
       {possibilities?.map((possibility, i) => (
-        <Button key={i} onClick={() => handleAnswer(possibility)}>
+        <Button
+          key={i}
+          onClick={() => handleAnswer(possibility)}
+          sx={{ textTransform: 'none' }}
+        >
           {possibility}
         </Button>
       ))}

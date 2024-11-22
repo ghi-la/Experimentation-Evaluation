@@ -9,19 +9,22 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PageContainer from '../components/PageContainer';
 import { addQuestion, getAllQuestions } from '../services/questionServices';
 import { openNotification } from '../store/actions';
 import { Question } from '../store/models/survey';
 
 const AdminPage: React.FC = () => {
-  const [test, setTest] = React.useState('');
-  const [check, setCheck] = React.useState('');
-  const [possibilities, setPossibilities] = React.useState<string[]>([]);
+  const dispatch = useDispatch();
 
-  const [questions, setQuestions] = React.useState<Question[]>([]);
-  const [questionIndex, setQuestionIndex] = React.useState(0);
+  const [test, setTest] = useState('');
+  const [check, setCheck] = useState('');
+  const [possibilities, setPossibilities] = useState<string[]>([]);
+
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questionIndex, setQuestionIndex] = useState(0);
 
   useEffect(() => {
     getAllQuestions().then((data: Question[]) => {
@@ -42,16 +45,17 @@ const AdminPage: React.FC = () => {
     addQuestion(question)
       .then((data) => {
         setQuestionIndex(questionIndex + 1);
-        openNotification({
-          message: 'Question added successfully',
-          severity: 'success',
-        });
+        dispatch(
+          openNotification({ message: 'Question added', severity: 'success' })
+        );
       })
       .catch((error) => {
-        openNotification({
-          message: 'Error adding question',
-          severity: 'error',
-        });
+        dispatch(
+          openNotification({
+            message: 'Error adding question',
+            severity: 'error',
+          })
+        );
       });
   };
 
