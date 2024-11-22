@@ -17,6 +17,8 @@ const SurveyPage = () => {
   const user: User = useSelector((state: any) => state.user);
   const survey: Survey = useSelector((state: any) => state.survey);
 
+  console.log(survey.surveyQuestions.questions);
+
   useEffect(() => {
     if (
       survey.surveyQuestions.currentQuestionIndex != 0 &&

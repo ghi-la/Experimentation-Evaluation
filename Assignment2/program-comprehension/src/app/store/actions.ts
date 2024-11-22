@@ -14,10 +14,12 @@ export const openNotification = (payload: {
 export const closeNotification = () => ({
   type: 'CLOSE_NOTIFICATION',
 });
+////////////////////////////////////////////////////////
 export const setUser = (payload: any) => ({
   type: 'SET_USER',
   payload,
 });
+////////////////////////////////////////////////////////
 export const startSurvey = () => ({
   type: 'START_SURVEY',
 });
@@ -31,3 +33,4 @@ export const setSurvey = (payload: any) => ({
 export const nextQuestion = () => ({
   type: 'NEXT_QUESTION',
 });
+////////////////////////////////////////////////////////

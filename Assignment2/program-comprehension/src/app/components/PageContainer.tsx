@@ -2,7 +2,7 @@
 
 import { Box, Container } from '@mui/material';
 
-export default function AppWrapper({
+export default function PageContainer({
   children,
 }: Readonly<{
   children: React.ReactNode;
