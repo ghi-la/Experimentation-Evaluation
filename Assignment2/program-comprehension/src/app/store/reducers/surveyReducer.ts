@@ -37,6 +37,34 @@ const surveyReducer = (state = INITIAL_STATE, action: any) => {
           currentQuestionIndex: state.surveyQuestions.currentQuestionIndex + 1,
         },
       };
+    case 'SET_QUESTION_ANSWER':
+      return {
+        ...state,
+        surveyQuestions: {
+          ...state.surveyQuestions,
+          answers: [...state.surveyQuestions.answers, action.payload.answer],
+          questions: state.surveyQuestions.questions.map((question, index) =>
+            index === state.surveyQuestions.currentQuestionIndex
+              ? { ...question, answer: action.payload.answer }
+              : question
+          ),
+        },
+      };
+    case 'SET_QUESTION_TIME_TAKEN':
+      return {
+        ...state,
+        surveyQuestions: {
+          ...state.surveyQuestions,
+          questions: state.surveyQuestions.questions.map((question, index) =>
+            index === state.surveyQuestions.currentQuestionIndex
+              ? { ...question, timeTaken: action.payload.timeTaken }
+              : question
+          ),
+        },
+      };
+    case 'SET_SURVEY_TIMER':
+      return { ...state, timer: action.payload.timer };
+
     default:
       return state;
   }

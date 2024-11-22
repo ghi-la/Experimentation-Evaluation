@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PageContainer from '../components/PageContainer';
 import Question from '../components/Question';
-import { endSurvey } from '../store/actions';
+import { addSurvey } from '../services/surveyServices';
+import { endSurvey, openNotification } from '../store/actions';
 import { Survey } from '../store/models/survey';
 import { User } from '../store/models/user';
 import SurveyInformations from './informations';
@@ -16,8 +17,6 @@ const SurveyPage = () => {
   const router = useRouter();
   const user: User = useSelector((state: any) => state.user);
   const survey: Survey = useSelector((state: any) => state.survey);
-
-  console.log(survey.surveyQuestions.questions);
 
   useEffect(() => {
     if (
@@ -31,6 +30,26 @@ const SurveyPage = () => {
     survey.surveyQuestions.currentQuestionIndex,
     survey.surveyQuestions.questions.length,
   ]);
+
+  useEffect(() => {
+    if (!user.name) {
+      dispatch(
+        openNotification({
+          message: 'Please fill in the form first',
+          severity: 'warning',
+        })
+      );
+      router.push('/form');
+    }
+  }, [user.name, dispatch, router]);
+
+  useEffect(() => {
+    if (survey.isSurveyCompleted) {
+      addSurvey(survey).then((data) => {
+        console.log(data);
+      });
+    }
+  }, [survey.isSurveyCompleted, survey]);
 
   return (
     <PageContainer>
@@ -46,11 +65,6 @@ const SurveyPage = () => {
               survey.surveyQuestions.questions[
                 survey.surveyQuestions.currentQuestionIndex
               ]?.test
-            }
-            check={
-              survey.surveyQuestions.questions[
-                survey.surveyQuestions.currentQuestionIndex
-              ]?.check
             }
             possibilities={
               survey.surveyQuestions.questions[

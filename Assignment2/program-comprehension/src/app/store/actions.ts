@@ -33,4 +33,16 @@ export const setSurvey = (payload: any) => ({
 export const nextQuestion = () => ({
   type: 'NEXT_QUESTION',
 });
+export const setQuestionAnswer = (payload: any) => ({
+  type: 'SET_QUESTION_ANSWER',
+  payload,
+});
+export const setQuestionTimeTaken = (payload: any) => ({
+  type: 'SET_QUESTION_TIME_TAKEN',
+  payload,
+});
+export const setSurveyTimer = (payload: any) => ({
+  type: 'SET_SURVEY_TIMER',
+  payload,
+});
 ////////////////////////////////////////////////////////

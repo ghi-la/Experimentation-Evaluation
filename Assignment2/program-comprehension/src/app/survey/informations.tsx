@@ -6,6 +6,7 @@ import { setSurvey, startSurvey } from '../store/actions';
 const SurveyInformations = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
+  const survey = useSelector((state: any) => state.survey);
 
   const handleStartSurvey = () => {
     getAllQuestions().then((questions) => {
