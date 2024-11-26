@@ -1,6 +1,9 @@
 'use client';
 import {
   Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
   Table,
   TableBody,
   TableCell,
@@ -20,6 +23,7 @@ const AdminPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const [test, setTest] = useState('');
+  const [caseVariant, setCaseVariant] = useState('');
   const [check, setCheck] = useState('');
   const [possibilities, setPossibilities] = useState<string[]>([]);
 
@@ -38,6 +42,7 @@ const AdminPage: React.FC = () => {
       questionIndex: questionIndex,
       timeTaken: 0,
       test: test,
+      caseVariant: caseVariant,
       check: check,
       possibilities: possibilities,
       answer: '',
@@ -74,6 +79,24 @@ const AdminPage: React.FC = () => {
           value={test}
           onChange={(e) => setTest(e.target.value)}
         />
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue="camelCase"
+          value={caseVariant}
+          row
+          onChange={(e) => setCaseVariant(e.target.value)}
+        >
+          <FormControlLabel
+            value="camelCase"
+            control={<Radio />}
+            label="camelCase"
+          />
+          <FormControlLabel
+            value="snake-case"
+            control={<Radio />}
+            label="snake-case"
+          />
+        </RadioGroup>
         <TextField
           label="Check (the correct answer)"
           value={check}
@@ -84,7 +107,9 @@ const AdminPage: React.FC = () => {
           label="Possibilities (separated by commas ',')"
           fullWidth={true}
           value={possibilities}
-          onChange={(e) => setPossibilities(e.target.value.split(','))}
+          onChange={(e) =>
+            setPossibilities(e.target.value.split(',').map((s) => s.trim()))
+          }
         />
 
         <Button type="submit">Add Question</Button>

@@ -10,7 +10,8 @@ export function middleware(req) {
     const user = cookies.user;
 
     // Define the protected paths
-    const protectedPaths = ['/statistics', '/survey'];
+    // const protectedPaths = ['/statistics', '/survey'];
+    const protectedPaths = ['/survey'];
 
     // Check if the user is trying to access a protected page and if they are not authenticated
     if (protectedPaths.includes(req.nextUrl.pathname) && !user) {
