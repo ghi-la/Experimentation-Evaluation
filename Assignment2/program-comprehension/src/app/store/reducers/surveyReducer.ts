@@ -5,7 +5,6 @@ const INITIAL_STATE: Survey = {
     name: '',
     surname: '',
     ageRange: '',
-    professionalBackground: '',
     codingFrequency: '',
     programmingLanguages: [],
   },
