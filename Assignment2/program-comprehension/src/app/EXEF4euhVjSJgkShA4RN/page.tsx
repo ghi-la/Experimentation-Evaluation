@@ -38,13 +38,15 @@ const AdminPage: React.FC = () => {
   }, [questionIndex]);
 
   const handleAddQuestion = () => {
+    const shuffledPossibilities = possibilities.sort(() => Math.random() - 0.5);
+
     const question: Question = {
       questionIndex: questionIndex,
       timeTaken: 0,
       test: test,
       caseVariant: caseVariant,
       check: check,
-      possibilities: possibilities,
+      possibilities: shuffledPossibilities,
       answer: '',
     };
     addQuestion(question)
@@ -53,6 +55,10 @@ const AdminPage: React.FC = () => {
         dispatch(
           openNotification({ message: 'Question added', severity: 'success' })
         );
+        setTest('');
+        setCaseVariant('');
+        setCheck('');
+        setPossibilities([]);
       })
       .catch((error) => {
         dispatch(
@@ -101,10 +107,17 @@ const AdminPage: React.FC = () => {
           label="Check (the correct answer)"
           value={check}
           fullWidth={true}
-          onChange={(e) => setCheck(e.target.value)}
+          onChange={(e) => {
+            setCheck(e.target.value);
+            if (check.includes('-')) {
+              setCaseVariant('snake-case');
+            } else {
+              setCaseVariant('camelCase');
+            }
+          }}
         />
         <TextField
-          label="Possibilities (separated by commas ',')"
+          label="Possibilities (separated by commas ',' and must include the correct answer)"
           fullWidth={true}
           value={possibilities}
           onChange={(e) =>
