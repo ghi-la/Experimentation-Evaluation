@@ -105,6 +105,7 @@ const FormPage = () => {
           <Autocomplete
             multiple
             options={programmingLanguagesList}
+            disableCloseOnSelect
             renderInput={(params) => (
               <TextField {...params} label="Known Programming Languages" />
             )}

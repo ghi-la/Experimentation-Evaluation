@@ -22,12 +22,10 @@ const programmingLanguagesList = [
   'JavaScript',
   'Python',
   'Java',
-  'C++',
-  'C#',
-  'Ruby',
+  'C, C++, C#',
+  'R',
   'PHP',
-  'Swift',
-  'Go',
+  'HTML/CSS (that are not programming languages, but anyway...)',
   'Other',
 ];
 

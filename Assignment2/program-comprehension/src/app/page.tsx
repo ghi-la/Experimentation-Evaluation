@@ -15,19 +15,17 @@ export default function Home() {
       <Typography variant="h3" gutterBottom>
         Welcome to the Code Readability Experiment
       </Typography>
-      <Typography variant="h6" color="textSecondary" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         We are investigating whether camelCase or kebab-case is more effective
         for code readability.
       </Typography>
       <Typography variant="body1" sx={{ mt: 2, mb: 4 }}>
-        Your participation is highly valued and will help us better understand
-        code readability preferences. Completing this survey will take only a
-        few minutes of your time, and the data collected will remain completely
-        anonymous.
+        Your participation is highly valued and completing this survey will take
+        only a few seconds of your time.
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        After finishing the survey, you can explore aggregated results through
-        visual graphs showing insights from all participants.
+        The collected data will be completely anonymous. We ask your name only
+        to ensure that you are not submitting multiple responses.
       </Typography>
       <Button
         variant="contained"
@@ -49,8 +47,8 @@ export default function Home() {
         If you have any questions, please contact us.
       </Typography>
       <Typography variant="body2" color="textSecondary">
-        If you are here means you know us already, so you know how to reach us
-        and we don't need to provide any contact information :)
+        If you are here means you know us already (Matteo or Sasha), so you know
+        how to reach us and we don't need to provide any contact information :)
       </Typography>
     </PageContainer>
   );
