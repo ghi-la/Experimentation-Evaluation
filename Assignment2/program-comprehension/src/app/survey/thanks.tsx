@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../store/models/user';
@@ -21,7 +21,8 @@ const SurveyThanks = () => {
         Your answers have been recorded and will be used to generate statistics
         about the readability of strings.
       </Typography>
-      <Typography variant="body1" sx={{ mb: 4 }}>
+
+      {/* <Typography variant="body1" sx={{ mb: 4 }}>
         Click the button below to see the statistics of the experiment that we
         have recorded until now.
       </Typography>
@@ -32,7 +33,7 @@ const SurveyThanks = () => {
         onClick={handleClick}
       >
         I want to see the statistics!
-      </Button>
+      </Button> */}
     </>
   );
 };

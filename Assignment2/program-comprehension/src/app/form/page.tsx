@@ -10,7 +10,6 @@ import { openNotification, setUser } from '../store/actions';
 import {
   ageRanges,
   codingFrequencyOptions,
-  professionalSectors,
   programmingLanguagesList,
   User,
 } from '../store/models/user';
@@ -22,7 +21,6 @@ const FormPage = () => {
   );
   const [username, setUsername] = useState('');
   const [age, setAge] = useState('');
-  const [professionalBackground, setProfessionalBackground] = useState('');
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,7 +28,7 @@ const FormPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!username || !age || !professionalBackground || !codingFrequency) {
+    if (!age || !codingFrequency) {
       dispatch(
         openNotification({
           message: 'Seems like you forgot to fill in some fields...',
@@ -39,13 +37,14 @@ const FormPage = () => {
       );
     } else {
       const user: User = {
-        name: username.split(' ')[0],
-        surname: username.split(' ')[1],
+        name: username.split(' ')[0].trim() || 'Anonymous',
+        surname: username.split(' ')[1] || '',
         ageRange: age,
-        professionalBackground: professionalBackground,
         codingFrequency: codingFrequency,
-        programmingLanguages: programmingLanguages,
+        programmingLanguages:
+          codingFrequency.toLowerCase() === 'never' ? [] : programmingLanguages,
       };
+      console.log(user);
       dispatch(setUser(user));
 
       Cookies.set('user', user.name, { expires: 0.5 / 24 }); // 0.5 hours = 30 minutes
@@ -61,7 +60,7 @@ const FormPage = () => {
       <form onSubmit={handleSubmit}>
         {/* Name and Surname */}
         <TextField
-          label="Name and Surname"
+          label="Name and Surname (leave blank if you want to stay anonymous)"
           variant="outlined"
           fullWidth
           sx={{ mb: 3 }}
@@ -76,17 +75,6 @@ const FormPage = () => {
           sx={{ mb: 3 }}
           value={age}
           onChange={(e, newValue) => setAge(newValue || '')}
-        />
-
-        {/* Professional Background */}
-        <Autocomplete
-          options={professionalSectors}
-          renderInput={(params) => (
-            <TextField {...params} label="Professional Background" />
-          )}
-          sx={{ mb: 3 }}
-          value={professionalBackground}
-          onChange={(e, newValue) => setProfessionalBackground(newValue || '')}
         />
 
         {/* How Often Reads or Writes Code */}

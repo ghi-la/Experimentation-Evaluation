@@ -2,21 +2,9 @@ export type User = {
   name: string;
   surname: string;
   ageRange: string;
-  professionalBackground: string;
   codingFrequency: string;
   programmingLanguages: string[];
 };
-
-const professionalSectors = [
-  'Education',
-  'Healthcare',
-  'Technology',
-  'Finance',
-  'Government',
-  'Arts and Entertainment',
-  'Science and Research',
-  'Other',
-];
 
 const programmingLanguagesList = [
   'JavaScript',
@@ -41,18 +29,4 @@ const ageRanges = [
   '65 or older',
 ];
 
-export {
-  ageRanges,
-  codingFrequencyOptions,
-  professionalSectors,
-  programmingLanguagesList,
-};
-
-export const testUser: User = {
-  name: 'John',
-  surname: 'Doe',
-  ageRange: '18-24',
-  professionalBackground: 'Technology',
-  codingFrequency: 'Daily',
-  programmingLanguages: ['JavaScript', 'Python'],
-};
+export { ageRanges, codingFrequencyOptions, programmingLanguagesList };

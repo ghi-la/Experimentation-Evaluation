@@ -32,17 +32,11 @@ const SurveyInformations = () => {
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
         The survey consists of 10 questions where we present you with strings
-        composed of 2 or more words, and you will have to click on the one you
-        find most readable.
+        composed of 2 or more words, and you will have to click the correct one.
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        We will track the time it takes to click on any of the strings (both the
-        correct ones and those intentionally placed incorrectly).
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 4 }}>
-        Do not focus too much on being "right" or "wrong" as making mistakes in
-        identifying some strings written in a certain way is part of the
-        experiment.
+        We will track the time it takes to click on the correct string and the
+        number of correct answers.
       </Typography>
       <Button
         variant="contained"

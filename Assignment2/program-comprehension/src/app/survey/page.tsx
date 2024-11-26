@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PageContainer from '../components/PageContainer';
-import Question from '../components/Question';
+import QuestionComponent from '../components/QuestionComponent';
 import { addSurvey } from '../services/surveyServices';
 import { endSurvey, openNotification } from '../store/actions';
 import { Survey } from '../store/models/survey';
@@ -55,22 +55,27 @@ const SurveyPage = () => {
     <PageContainer>
       {survey.isSurveyStarted ? (
         !survey.isSurveyCompleted ? (
-          <Question
-            index={
+          <QuestionComponent
+            question={
               survey.surveyQuestions.questions[
                 survey.surveyQuestions.currentQuestionIndex
-              ]?.questionIndex
+              ]
             }
-            test={
-              survey.surveyQuestions.questions[
-                survey.surveyQuestions.currentQuestionIndex
-              ]?.test
-            }
-            possibilities={
-              survey.surveyQuestions.questions[
-                survey.surveyQuestions.currentQuestionIndex
-              ]?.possibilities
-            }
+            // index={
+            //   survey.surveyQuestions.questions[
+            //     survey.surveyQuestions.currentQuestionIndex
+            //   ]?.questionIndex
+            // }
+            // test={
+            //   survey.surveyQuestions.questions[
+            //     survey.surveyQuestions.currentQuestionIndex
+            //   ]?.test
+            // }
+            // possibilities={
+            //   survey.surveyQuestions.questions[
+            //     survey.surveyQuestions.currentQuestionIndex
+            //   ]?.possibilities
+            // }
           />
         ) : (
           <SurveyThanks />

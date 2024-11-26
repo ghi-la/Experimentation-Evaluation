@@ -24,8 +24,8 @@ export default function Home() {
         only a few seconds of your time.
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        The collected data will be completely anonymous. We ask your name only
-        to ensure that you are not submitting multiple responses.
+        We ask your name only to ensure that you are not submitting multiple
+        responses.
       </Typography>
       <Button
         variant="contained"

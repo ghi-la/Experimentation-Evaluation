@@ -4,7 +4,6 @@ const INITIAL_STATE: User = {
   name: '',
   surname: '',
   ageRange: '',
-  professionalBackground: '',
   codingFrequency: '',
   programmingLanguages: [],
 };

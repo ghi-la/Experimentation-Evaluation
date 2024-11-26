@@ -3,20 +3,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   nextQuestion,
+  openNotification,
   setQuestionAnswer,
   setQuestionTimeTaken,
   setSurveyTimer,
 } from '../store/actions';
+import { Question } from '../store/models/survey';
 
-const Question = ({
-  index,
-  test,
-  possibilities,
-}: {
-  index: number;
-  test: string;
-  possibilities: string[];
-}) => {
+const QuestionComponent = ({ question }: { question: Question }) => {
   const dispatch = useDispatch();
   const survey = useSelector((state: any) => state.survey);
 
@@ -33,21 +27,28 @@ const Question = ({
     };
   }, [survey.surveyQuestions.currentQuestionIndex]);
 
-  // if (!index || !test || !check || !possibilities) {
-  //   return null;
-  // }
-
   function handleAnswer(answer: string) {
-    dispatch(setSurveyTimer({ timer: survey.timer + time }));
-    dispatch(setQuestionTimeTaken({ index, timeTaken: time }));
-    dispatch(setQuestionAnswer({ index, answer }));
-    dispatch(nextQuestion());
+    if (answer === question.check) {
+      dispatch(setSurveyTimer({ timer: survey.timer + time }));
+      dispatch(
+        setQuestionTimeTaken({ index: question.questionIndex, timeTaken: time })
+      );
+      dispatch(setQuestionAnswer({ index: question.questionIndex, answer }));
+      dispatch(nextQuestion());
+    } else {
+      dispatch(
+        openNotification({
+          message: 'Wrong answer, try again!',
+          severity: 'error',
+        })
+      );
+    }
   }
 
   return (
     <div>
-      <h2>{test}</h2>
-      {possibilities?.map((possibility, i) => (
+      <h2>{question?.test}</h2>
+      {question?.possibilities?.map((possibility, i) => (
         <Button
           key={i}
           onClick={(e) => handleAnswer(e.currentTarget.textContent || '')}
@@ -60,4 +61,4 @@ const Question = ({
   );
 };
 
-export default Question;
+export default QuestionComponent;
