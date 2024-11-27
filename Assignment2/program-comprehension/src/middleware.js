@@ -13,6 +13,12 @@ export function middleware(req) {
     // const protectedPaths = ['/statistics', '/survey'];
     const protectedPaths = ['/survey'];
 
+    if (process.env.NODE_ENV !== 'development') {
+      if (req.nextUrl.pathname === '/admin') {
+        return NextResponse.redirect(new URL('/', req.url));
+      }
+    }
+
     // Check if the user is trying to access a protected page and if they are not authenticated
     if (protectedPaths.includes(req.nextUrl.pathname) && !user) {
       // If not authenticated, redirect to the homepage

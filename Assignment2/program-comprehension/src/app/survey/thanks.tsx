@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import Confetti from 'react-confetti';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../store/models/user';
 
@@ -14,6 +15,7 @@ const SurveyThanks = () => {
 
   return (
     <>
+      <Confetti gravity={0.04} opacity={0.8} />
       <Typography variant="h3" gutterBottom>
         Thank you very much for participating in this survey {user.name}!
       </Typography>
