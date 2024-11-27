@@ -59,7 +59,7 @@ const FormPage = () => {
       <form onSubmit={handleSubmit}>
         {/* Name and Surname */}
         <TextField
-          label="Name and Surname (leave blank if you want to stay anonymous)"
+          label="Name and Surname (your name will be kept anonymous; only used for identification)"
           variant="outlined"
           fullWidth
           sx={{ mb: 3 }}
@@ -114,7 +114,7 @@ const FormPage = () => {
         </Button>
         <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
           By submitting this form, you agree that we can use your data for this
-          experiment (all data will be anonymized).
+          experiment.
         </Typography>
       </form>
     </PageContainer>

@@ -1,81 +1,39 @@
 'use client';
-import {
-  Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-} from '@mui/material';
+import { Button, Card, CardContent } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import QuestionsList from '../components/Dialogs/QuestionsList';
+import SurveysList from '../components/Dialogs/SurveysList';
 import PageContainer from '../components/PageContainer';
 import { addQuestion, getAllQuestions } from '../services/questionServices';
+import { getAllSurveys } from '../services/surveyServices';
 import { openNotification } from '../store/actions';
-import { Question } from '../store/models/survey';
+import { Question, Survey } from '../store/models/survey';
 import questionsPreset from './questionsPreset';
 
 const AdminPage: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [test, setTest] = useState('');
-  const [caseVariant, setCaseVariant] = useState('');
-  const [check, setCheck] = useState('');
-  const [possibilities, setPossibilities] = useState<string[]>([]);
-
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [questionIndex, setQuestionIndex] = useState(0);
+  const [surveys, setSurveys] = useState<Survey[]>([]);
+
+  const [questionsListOpen, setQuestionsListOpen] = useState(false);
+  const [surveysListOpen, setSurveysListOpen] = useState(false);
 
   useEffect(() => {
     getAllQuestions().then((data: Question[]) => {
       setQuestions(data);
-      setQuestionIndex(data.length);
     });
-  }, [questionIndex]);
+    getAllSurveys().then((data) => {
+      setSurveys(data);
+    });
+  }, []);
 
-  const handleAddQuestion = () => {
-    const shuffledPossibilities = possibilities.sort(() => Math.random() - 0.5);
-
-    const question: Question = {
-      questionIndex: questionIndex,
-      timeTaken: 0,
-      test: test,
-      caseVariant: caseVariant,
-      check: check,
-      possibilities: shuffledPossibilities,
-      errors: 0,
-    };
-    addQuestion(question)
-      .then((data) => {
-        setQuestionIndex(questionIndex + 1);
-        dispatch(
-          openNotification({ message: 'Question added', severity: 'success' })
-        );
-        setTest('');
-        setCaseVariant('');
-        setCheck('');
-        setPossibilities([]);
-      })
-      .catch((error) => {
-        dispatch(
-          openNotification({
-            message: 'Error adding question',
-            severity: 'error',
-          })
-        );
-      });
-  };
   const handleLoadPreset = () => {
-    console.log(questionsPreset);
     questionsPreset.forEach((question) => {
       addQuestion(question)
         .then((data) => {
-          setQuestionIndex(question.questionIndex);
+          // setQuestionIndex(question.questionIndex);
           dispatch(
             openNotification({ message: 'Question added', severity: 'success' })
           );
@@ -90,90 +48,91 @@ const AdminPage: React.FC = () => {
         });
     });
   };
+  const handleDownloadCSV = () => {
+    let csvContent = '';
+    let csvHeader =
+      'Username, AgeRange, CodingFrequency, NumberKnownLanguage, SurveyTotalTime,';
+    questions.forEach((question) => {
+      csvHeader += `Question${question.questionIndex + 1}Length, `;
+      csvHeader += `Question${question.questionIndex + 1}CaseVariant, `;
+      csvHeader += `Question${question.questionIndex + 1}Errors, `;
+      csvHeader += `Question${question.questionIndex + 1}TimeTaken, `;
+    });
+    csvHeader += '\n';
+    csvContent += csvHeader;
+    surveys.forEach((survey: Survey) => {
+      let csvRow = `${survey.user.name}, ${survey.user.ageRange}, ${survey.user.codingFrequency}, ${survey.user.programmingLanguages.length}, ${survey.timer}, `;
+      survey.surveyQuestions.questions.forEach((question: Question) => {
+        csvRow += `${Math.max(
+          question.test.split('-').length,
+          question.test.split(/(?=[A-Z])/).length
+        )}, `;
+        csvRow += `${question.caseVariant}, `;
+        csvRow += `${question.errors}, `;
+        csvRow += `${question.timeTaken}, `;
+      });
+      csvRow += '\n';
+      csvContent += csvRow;
+    });
+    // create a csv file and download it
+    const csvFile = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(csvFile);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'survey-results.csv';
+    a.click();
+  };
 
   return (
     <PageContainer>
       <h1>Admin Panel</h1>
-      <Button onClick={handleLoadPreset}>Load Preset</Button>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleAddQuestion();
-        }}
+      <div
+        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}
       >
-        <TextField
-          label="Test Sentence"
-          fullWidth={true}
-          value={test}
-          onChange={(e) => setTest(e.target.value)}
-        />
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="camelCase"
-          value={caseVariant}
-          row
-          onChange={(e) => setCaseVariant(e.target.value)}
-        >
-          <FormControlLabel
-            value="camelCase"
-            control={<Radio />}
-            label="camelCase"
-          />
-          <FormControlLabel
-            value="snake-case"
-            control={<Radio />}
-            label="snake-case"
-          />
-        </RadioGroup>
-        <TextField
-          label="Check (the correct answer)"
-          value={check}
-          fullWidth={true}
-          onChange={(e) => {
-            setCheck(e.target.value);
-            if (check.includes('-')) {
-              setCaseVariant('snake-case');
-            } else {
-              setCaseVariant('camelCase');
-            }
-          }}
-        />
-        <TextField
-          label="Possibilities (separated by commas ',' and must include the correct answer)"
-          fullWidth={true}
-          value={possibilities}
-          onChange={(e) =>
-            setPossibilities(e.target.value.split(',').map((s) => s.trim()))
-          }
-        />
+        <Card>
+          <CardContent>
+            <h2>Questions: {questions.length}</h2>
+            <Button
+              onClick={handleLoadPreset}
+              fullWidth
+              disabled={questions.length > 0}
+            >
+              Load Questions Preset
+            </Button>
+            <Button onClick={() => setQuestionsListOpen(true)} fullWidth>
+              Questions List
+            </Button>
+          </CardContent>
+        </Card>
 
-        <Button type="submit">Add Question</Button>
-      </form>
-      <hr />
+        <Card>
+          <CardContent>
+            <h2>Surveys: {surveys.length}</h2>
+            <Button
+              onClick={handleDownloadCSV}
+              fullWidth
+              disabled={surveys.length <= 0}
+            >
+              Download CSV
+            </Button>
 
-      <h2>Questions List</h2>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Question Index</TableCell>
-              <TableCell>Test</TableCell>
-              <TableCell>Check</TableCell>
-              <TableCell>Possibilities</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {questions.map((question, i) => (
-              <TableRow key={i}>
-                <TableCell>{question.questionIndex}</TableCell>
-                <TableCell>{question.test}</TableCell>
-                <TableCell>{question.check}</TableCell>
-                <TableCell>{question.possibilities.join(', ')}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            <Button onClick={() => setSurveysListOpen(true)} fullWidth>
+              Surveys List
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <QuestionsList
+        open={questionsListOpen}
+        onClose={() => setQuestionsListOpen(false)}
+        questions={questions}
+      />
+      <SurveysList
+        open={surveysListOpen}
+        onClose={() => setSurveysListOpen(false)}
+        surveys={surveys}
+      />
     </PageContainer>
   );
 };
