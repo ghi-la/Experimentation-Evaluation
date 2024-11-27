@@ -15,7 +15,9 @@ export function middleware(req) {
 
     if (process.env.NODE_ENV !== 'development') {
       if (req.nextUrl.pathname === '/admin') {
-        return NextResponse.redirect(new URL('/', req.url));
+        return NextResponse.redirect(
+          new URL('https://www.youtube.com/shorts/SXHMnicI6Pg', req.url)
+        );
       }
     }
 
