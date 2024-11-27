@@ -7,7 +7,8 @@ export type Question = {
   caseVariant: string;
   check: string;
   possibilities: string[];
-  answer: string;
+  // answer: string;
+  errors: number;
 };
 
 export type Survey = {
@@ -18,7 +19,7 @@ export type Survey = {
   surveyQuestions: {
     currentQuestionIndex: number;
     questions: Question[];
-    answers: string[];
+    // answers: string[];
   };
 };
 

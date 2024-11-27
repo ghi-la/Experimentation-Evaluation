@@ -18,7 +18,7 @@ const SurveyInformations = () => {
         surveyQuestions: {
           currentQuestionIndex: 0,
           questions: questions,
-          answers: [],
+          // answers: [],
         },
       };
       dispatch(setSurvey(survey));
@@ -36,7 +36,7 @@ const SurveyInformations = () => {
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
         We will track the time it takes to click on the correct string and the
-        number of correct answers.
+        number of errors you make for each question.
       </Typography>
       <Button
         variant="contained"

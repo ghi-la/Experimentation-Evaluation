@@ -22,13 +22,13 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    console.log('Correct Answers');
-    const correctAnswers = surveys.map((survey) =>
-      survey.surveyQuestions.questions.map((question) =>
-        question.answer === question.check ? 1 : 0
-      )
-    );
-    console.log(correctAnswers);
+    // console.log('Correct Answers');
+    // const correctAnswers = surveys.map((survey) =>
+    //   survey.surveyQuestions.questions.map((question) =>
+    //     question.answer === question.check ? 1 : 0
+    //   )
+    // );
+    // console.log(correctAnswers);
   }, [surveys]);
 
   return (

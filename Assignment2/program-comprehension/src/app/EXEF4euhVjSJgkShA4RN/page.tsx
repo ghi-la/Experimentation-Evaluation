@@ -47,7 +47,7 @@ const AdminPage: React.FC = () => {
       caseVariant: caseVariant,
       check: check,
       possibilities: shuffledPossibilities,
-      answer: '',
+      errors: 0,
     };
     addQuestion(question)
       .then((data) => {

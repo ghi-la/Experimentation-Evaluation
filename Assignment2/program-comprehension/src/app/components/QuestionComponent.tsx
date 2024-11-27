@@ -2,9 +2,9 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  increaseErrorCount,
   nextQuestion,
   openNotification,
-  setQuestionAnswer,
   setQuestionTimeTaken,
   setSurveyTimer,
 } from '../store/actions';
@@ -33,9 +33,10 @@ const QuestionComponent = ({ question }: { question: Question }) => {
       dispatch(
         setQuestionTimeTaken({ index: question.questionIndex, timeTaken: time })
       );
-      dispatch(setQuestionAnswer({ index: question.questionIndex, answer }));
+      // dispatch(setQuestionAnswer({ index: question.questionIndex, answer }));
       dispatch(nextQuestion());
     } else {
+      dispatch(increaseErrorCount());
       dispatch(
         openNotification({
           message: 'Wrong answer, try again!',

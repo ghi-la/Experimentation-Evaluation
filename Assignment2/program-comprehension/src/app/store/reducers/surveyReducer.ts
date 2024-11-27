@@ -14,7 +14,7 @@ const INITIAL_STATE: Survey = {
   surveyQuestions: {
     currentQuestionIndex: 0,
     questions: [],
-    answers: [],
+    // answers: [],
   },
 };
 
@@ -36,15 +36,27 @@ const surveyReducer = (state = INITIAL_STATE, action: any) => {
           currentQuestionIndex: state.surveyQuestions.currentQuestionIndex + 1,
         },
       };
-    case 'SET_QUESTION_ANSWER':
+    // case 'SET_QUESTION_ANSWER':
+    //   return {
+    //     ...state,
+    //     surveyQuestions: {
+    //       ...state.surveyQuestions,
+    //       answers: [...state.surveyQuestions.answers, action.payload.answer],
+    //       questions: state.surveyQuestions.questions.map((question, index) =>
+    //         index === state.surveyQuestions.currentQuestionIndex
+    //           ? { ...question, answer: action.payload.answer }
+    //           : question
+    //       ),
+    //     },
+    //   };
+    case 'INCREASE_ERROR_COUNT':
       return {
         ...state,
         surveyQuestions: {
           ...state.surveyQuestions,
-          answers: [...state.surveyQuestions.answers, action.payload.answer],
           questions: state.surveyQuestions.questions.map((question, index) =>
             index === state.surveyQuestions.currentQuestionIndex
-              ? { ...question, answer: action.payload.answer }
+              ? { ...question, errors: question.errors + 1 }
               : question
           ),
         },
