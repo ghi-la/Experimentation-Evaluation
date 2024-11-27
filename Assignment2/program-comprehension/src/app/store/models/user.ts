@@ -19,14 +19,6 @@ const programmingLanguagesList = [
 
 const codingFrequencyOptions = ['Never', 'Rarely', 'Often', 'Daily'];
 
-const ageRanges = [
-  'Under 18',
-  '18-24',
-  '25-34',
-  '35-44',
-  '45-54',
-  '55-64',
-  '65 or older',
-];
+const ageRanges = ['Under 18', '18-24', '25-34', '35-44', '45 or older'];
 
 export { ageRanges, codingFrequencyOptions, programmingLanguagesList };

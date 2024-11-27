@@ -49,15 +49,24 @@ const QuestionComponent = ({ question }: { question: Question }) => {
   return (
     <div>
       <h2>{question?.test}</h2>
-      {question?.possibilities?.map((possibility, i) => (
-        <Button
-          key={i}
-          onClick={(e) => handleAnswer(e.currentTarget.textContent || '')}
-          sx={{ textTransform: 'none' }}
-        >
-          {possibility}
-        </Button>
-      ))}
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {question?.possibilities?.map((possibility, i) => (
+          <Button
+            key={i}
+            variant="outlined"
+            onClick={(e) => handleAnswer(e.currentTarget.textContent || '')}
+            sx={{
+              textTransform: 'none',
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+              flex: '1 1 45%',
+              margin: '5px',
+            }}
+          >
+            {possibility}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 };
