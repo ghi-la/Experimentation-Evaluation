@@ -18,6 +18,7 @@ import PageContainer from '../components/PageContainer';
 import { addQuestion, getAllQuestions } from '../services/questionServices';
 import { openNotification } from '../store/actions';
 import { Question } from '../store/models/survey';
+import questionsPreset from './questionsPreset';
 
 const AdminPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -69,10 +70,31 @@ const AdminPage: React.FC = () => {
         );
       });
   };
+  const handleLoadPreset = () => {
+    console.log(questionsPreset);
+    questionsPreset.forEach((question) => {
+      addQuestion(question)
+        .then((data) => {
+          setQuestionIndex(question.questionIndex);
+          dispatch(
+            openNotification({ message: 'Question added', severity: 'success' })
+          );
+        })
+        .catch((error) => {
+          dispatch(
+            openNotification({
+              message: 'Error adding question',
+              severity: 'error',
+            })
+          );
+        });
+    });
+  };
 
   return (
     <PageContainer>
       <h1>Admin Panel</h1>
+      <Button onClick={handleLoadPreset}>Load Preset</Button>
       <form
         onSubmit={(e) => {
           e.preventDefault();

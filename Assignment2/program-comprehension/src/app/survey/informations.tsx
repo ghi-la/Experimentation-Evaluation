@@ -2,6 +2,7 @@ import { Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllQuestions } from '../services/questionServices';
 import { setSurvey, startSurvey } from '../store/actions';
+import { Survey } from '../store/models/survey';
 
 const SurveyInformations = () => {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const SurveyInformations = () => {
 
   const handleStartSurvey = () => {
     getAllQuestions().then((questions) => {
-      const survey = {
+      const survey: Survey = {
         user: user,
         timer: 0,
         isSurveyStarted: false,

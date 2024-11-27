@@ -44,6 +44,7 @@ const SurveyPage = () => {
   }, [user.name, dispatch, router]);
 
   useEffect(() => {
+    console.log(survey);
     if (survey.isSurveyCompleted) {
       addSurvey(survey).then((data) => {
         console.log(data);

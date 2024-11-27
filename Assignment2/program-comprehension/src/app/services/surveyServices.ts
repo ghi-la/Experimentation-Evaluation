@@ -13,12 +13,12 @@ export const getAllSurveys = async () => {
   }
 };
 
-export const addSurvey = async (question: Survey) => {
+export const addSurvey = async (survey: Survey) => {
   try {
-    const response = await axios.post(API_URL, question);
+    const response = await axios.post(API_URL, survey);
     return response.data;
   } catch (error) {
-    console.error('Error adding question:', error);
+    console.error('Error adding survey:', error);
     throw error;
   }
 };
