@@ -53,8 +53,10 @@ const AdminPage: React.FC = () => {
     let csvContent = '';
 
     // Define the CSV header
+    // let csvHeader =
+    //   'Username, Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors\n';
     let csvHeader =
-      'Username, Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors\n';
+      'Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors\n';
     csvContent += csvHeader;
 
     surveys.forEach((survey) => {
