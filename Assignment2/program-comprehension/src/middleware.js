@@ -17,7 +17,10 @@ export function middleware(req) {
     if (process.env.NODE_ENV !== 'development') {
       if (blacklistedPaths.includes(req.nextUrl.pathname)) {
         return NextResponse.redirect(
-          new URL('https://www.youtube.com/shorts/SXHMnicI6Pg', req.url)
+          new URL(
+            'https://shattereddisk.github.io/rickroll/rickroll.mp4',
+            req.url
+          )
         );
       }
     }
