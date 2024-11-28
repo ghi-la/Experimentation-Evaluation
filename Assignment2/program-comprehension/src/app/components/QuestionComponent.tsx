@@ -49,7 +49,12 @@ const QuestionComponent = ({ question }: { question: Question }) => {
   return (
     <div>
       <h2>{question?.test}</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: window.innerWidth > 500 ? 'flex' : 'block',
+          flexWrap: 'wrap',
+        }}
+      >
         {question?.possibilities?.map((possibility, i) => (
           <Button
             key={i}
@@ -61,6 +66,7 @@ const QuestionComponent = ({ question }: { question: Question }) => {
               fontSize: '1.2rem',
               flex: '1 1 45%',
               margin: '5px',
+              width: 'calc(100% - 10px)',
             }}
           >
             {possibility}

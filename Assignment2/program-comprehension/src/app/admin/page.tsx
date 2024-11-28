@@ -51,31 +51,28 @@ const AdminPage: React.FC = () => {
   };
   const handleDownloadCSV = () => {
     let csvContent = '';
+
+    // Define the CSV header
     let csvHeader =
-      'Username, AgeRange, CodingFrequency, NumberKnownLanguage, SurveyTotalTime,';
-    questions.forEach((question) => {
-      csvHeader += `Question${question.questionIndex + 1}Length, `;
-      csvHeader += `Question${question.questionIndex + 1}CaseVariant, `;
-      csvHeader += `Question${question.questionIndex + 1}Errors, `;
-      csvHeader += `Question${question.questionIndex + 1}TimeTaken, `;
-    });
-    csvHeader += '\n';
+      'Username, Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors\n';
     csvContent += csvHeader;
-    surveys.forEach((survey: Survey) => {
-      let csvRow = `${survey.user.name}, ${survey.user.ageRange}, ${survey.user.codingFrequency}, ${survey.user.programmingLanguages.length}, ${survey.timer}, `;
-      survey.surveyQuestions.questions.forEach((question: Question) => {
-        csvRow += `${Math.max(
-          question.test.split('-').length,
-          question.test.split(/(?=[A-Z])/).length
-        )}, `;
-        csvRow += `${question.caseVariant}, `;
-        csvRow += `${question.errors}, `;
-        csvRow += `${question.timeTaken}, `;
+
+    surveys.forEach((survey) => {
+      survey.surveyQuestions.questions.forEach((question) => {
+        const csvRow = [
+          survey.user.name, // Username
+          survey.timer, // Total survey time
+          question.questionIndex, // Question index
+          question.timeTaken, // Time taken for the question
+          question.test, // Test name
+          question.caseVariant, // Case variant
+          question.errors, // Number of errors
+        ].join(', ');
+        csvContent += csvRow + '\n';
       });
-      csvRow += '\n';
-      csvContent += csvRow;
     });
-    // create a csv file and download it
+
+    // Create and download the CSV file
     const csvFile = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(csvFile);
     const a = document.createElement('a');
@@ -83,6 +80,7 @@ const AdminPage: React.FC = () => {
     a.download = 'survey-results.csv';
     a.click();
   };
+
 
   return (
     <PageContainer>
