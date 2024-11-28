@@ -60,7 +60,7 @@ const AdminPage: React.FC = () => {
     surveys.forEach((survey) => {
       survey.surveyQuestions.questions.forEach((question) => {
         const csvRow = [
-          survey.user.name, // Username
+          // survey.user.name, // Username
           survey.timer, // Total survey time
           question.questionIndex, // Question index
           question.timeTaken, // Time taken for the question
