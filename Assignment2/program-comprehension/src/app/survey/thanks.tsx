@@ -20,8 +20,8 @@ const SurveyThanks = () => {
         Thank you very much for participating in this survey {user.name}!
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
-        Your answers have been recorded and will be used to generate statistics
-        about the readability of strings.
+        If you would like to receive a copy of the results of this survey,
+        please contact us.
       </Typography>
 
       {/* <Typography variant="body1" sx={{ mb: 4 }}>

@@ -44,11 +44,8 @@ const SurveyPage = () => {
   }, [user.name, dispatch, router]);
 
   useEffect(() => {
-    console.log(survey);
     if (survey.isSurveyCompleted) {
-      addSurvey(survey).then((data) => {
-        console.log(data);
-      });
+      addSurvey(survey).then((data) => {});
     }
   }, [survey.isSurveyCompleted, survey]);
 
@@ -62,21 +59,6 @@ const SurveyPage = () => {
                 survey.surveyQuestions.currentQuestionIndex
               ]
             }
-            // index={
-            //   survey.surveyQuestions.questions[
-            //     survey.surveyQuestions.currentQuestionIndex
-            //   ]?.questionIndex
-            // }
-            // test={
-            //   survey.surveyQuestions.questions[
-            //     survey.surveyQuestions.currentQuestionIndex
-            //   ]?.test
-            // }
-            // possibilities={
-            //   survey.surveyQuestions.questions[
-            //     survey.surveyQuestions.currentQuestionIndex
-            //   ]?.possibilities
-            // }
           />
         ) : (
           <SurveyThanks />

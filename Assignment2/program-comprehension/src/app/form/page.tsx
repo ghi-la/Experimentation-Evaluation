@@ -3,10 +3,10 @@
 import { Autocomplete, Button, TextField, Typography } from '@mui/material';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PageContainer from '../components/PageContainer';
-import { openNotification, setUser } from '../store/actions';
+import { isLoaded, openNotification, setUser } from '../store/actions';
 import {
   ageRanges,
   codingFrequencyOptions,
@@ -25,10 +25,14 @@ const FormPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  useEffect(() => {
+    dispatch(isLoaded());
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!age || !codingFrequency) {
+    if (!username || !age || !codingFrequency) {
       dispatch(
         openNotification({
           message: 'Seems like you forgot to fill in some fields...',
@@ -37,7 +41,7 @@ const FormPage = () => {
       );
     } else {
       const user: User = {
-        name: username.split(' ')[0].trim() || 'Anonymous',
+        name: username.split(' ')[0].trim(),
         surname: username.split(' ')[1] || '',
         ageRange: age,
         codingFrequency: codingFrequency,

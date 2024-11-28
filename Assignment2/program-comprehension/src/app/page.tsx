@@ -4,7 +4,7 @@ import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation'; // Correct import for app directory
 import { useDispatch } from 'react-redux';
 import PageContainer from './components/PageContainer';
-import { openNotification } from './store/actions';
+import { isLoading, openNotification } from './store/actions';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ export default function Home() {
         color="primary"
         size="large"
         onClick={() => {
+          dispatch(isLoading());
           router.push('/form');
           dispatch(
             openNotification({

@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllQuestions } from '../services/questionServices';
-import { setSurvey, startSurvey } from '../store/actions';
+import { isLoaded, isLoading, setSurvey, startSurvey } from '../store/actions';
 import { Question, Survey } from '../store/models/survey';
 
 const SurveyInformations = () => {
@@ -11,8 +11,10 @@ const SurveyInformations = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
 
   useEffect(() => {
+    dispatch(isLoading());
     getAllQuestions().then((data) => {
       setQuestions(data);
+      dispatch(isLoaded());
     });
   }, []);
 

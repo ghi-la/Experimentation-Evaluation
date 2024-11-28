@@ -7,7 +7,7 @@ import SurveysList from '../components/Dialogs/SurveysList';
 import PageContainer from '../components/PageContainer';
 import { addQuestion, getAllQuestions } from '../services/questionServices';
 import { getAllSurveys } from '../services/surveyServices';
-import { openNotification } from '../store/actions';
+import { isLoaded, isLoading, openNotification } from '../store/actions';
 import { Question, Survey } from '../store/models/survey';
 import questionsPreset from './questionsPreset';
 
@@ -21,11 +21,13 @@ const AdminPage: React.FC = () => {
   const [surveysListOpen, setSurveysListOpen] = useState(false);
 
   useEffect(() => {
+    dispatch(isLoading());
     getAllQuestions().then((data: Question[]) => {
       setQuestions(data);
-    });
-    getAllSurveys().then((data) => {
-      setSurveys(data);
+      getAllSurveys().then((data) => {
+        setSurveys(data);
+        dispatch(isLoaded());
+      });
     });
   }, []);
 
@@ -33,7 +35,6 @@ const AdminPage: React.FC = () => {
     questionsPreset.forEach((question) => {
       addQuestion(question)
         .then((data) => {
-          // setQuestionIndex(question.questionIndex);
           dispatch(
             openNotification({ message: 'Question added', severity: 'success' })
           );

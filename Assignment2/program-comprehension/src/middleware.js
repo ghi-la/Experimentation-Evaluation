@@ -10,11 +10,12 @@ export function middleware(req) {
     const user = cookies.user;
 
     // Define the protected paths
-    // const protectedPaths = ['/statistics', '/survey'];
     const protectedPaths = ['/survey'];
+    const blacklistedPaths = ['/admin', 'statistics'];
+    // const protectedPaths = ['/survey'];
 
     if (process.env.NODE_ENV !== 'development') {
-      if (req.nextUrl.pathname === '/admin') {
+      if (blacklistedPaths.includes(req.nextUrl.pathname)) {
         return NextResponse.redirect(
           new URL('https://www.youtube.com/shorts/SXHMnicI6Pg', req.url)
         );
