@@ -1,8 +1,7 @@
 import { User } from '../models/user';
 
 const INITIAL_STATE: User = {
-  name: '',
-  surname: '',
+  username: '',
   ageRange: '',
   codingFrequency: '',
   programmingLanguages: [],
