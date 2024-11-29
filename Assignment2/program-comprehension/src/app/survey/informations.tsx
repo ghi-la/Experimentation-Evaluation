@@ -52,7 +52,7 @@ const SurveyInformations = () => {
   return (
     <>
       <Typography variant="h3" gutterBottom>
-        Thanks for participating to this survey
+        The survey will only take a few seconds of your time
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
         The survey consists of {questions.length} questions where we present you
