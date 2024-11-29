@@ -1,6 +1,5 @@
 export type User = {
-  name: string;
-  surname: string;
+  username: string;
   ageRange: string;
   codingFrequency: string;
   programmingLanguages: string[];

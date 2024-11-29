@@ -33,9 +33,7 @@ const SurveysList = ({
           <TableBody>
             {surveys.map((survey, i) => (
               <TableRow key={i}>
-                <TableCell>
-                  {survey.user.name} {survey.user.surname}
-                </TableCell>
+                <TableCell>{survey.user.username}</TableCell>
                 <TableCell>{survey.timer}</TableCell>
                 <TableCell>
                   {survey.surveyQuestions.questions.reduce(

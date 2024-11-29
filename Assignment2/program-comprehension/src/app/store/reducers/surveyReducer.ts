@@ -2,8 +2,7 @@ import { Survey } from '../models/survey';
 
 const INITIAL_STATE: Survey = {
   user: {
-    name: '',
-    surname: '',
+    username: '',
     ageRange: '',
     codingFrequency: '',
     programmingLanguages: [],

@@ -32,7 +32,7 @@ const SurveyPage = () => {
   ]);
 
   useEffect(() => {
-    if (!user.name) {
+    if (!user.username) {
       dispatch(
         openNotification({
           message: 'Please fill in the form first',
@@ -41,7 +41,7 @@ const SurveyPage = () => {
       );
       router.push('/form');
     }
-  }, [user.name, dispatch, router]);
+  }, [user.username, dispatch, router]);
 
   useEffect(() => {
     if (survey.isSurveyCompleted) {

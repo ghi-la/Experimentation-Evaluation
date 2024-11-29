@@ -41,8 +41,7 @@ const FormPage = () => {
       );
     } else {
       const user: User = {
-        name: username.split(' ')[0].trim(),
-        surname: username.split(' ')[1] || '',
+        username: username,
         ageRange: age,
         codingFrequency: codingFrequency,
         programmingLanguages:
@@ -50,7 +49,7 @@ const FormPage = () => {
       };
       dispatch(setUser(user));
 
-      Cookies.set('user', user.name, { expires: 0.5 / 24 }); // 0.5 hours = 30 minutes
+      Cookies.set('user', user.username, { expires: 0.5 / 24 }); // 0.5 hours = 30 minutes
       router.push('/survey');
     }
   };

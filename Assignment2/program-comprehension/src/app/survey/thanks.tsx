@@ -17,7 +17,7 @@ const SurveyThanks = () => {
     <>
       <Confetti gravity={0.04} opacity={0.8} />
       <Typography variant="h3" gutterBottom>
-        Thank you very much for participating in this survey {user.name}!
+        Thank you very much for participating in this survey {user.username}!
       </Typography>
       <Typography variant="body1" sx={{ mb: 4 }}>
         If you would like to receive a copy of the results of this survey,
