@@ -36,7 +36,7 @@ export default function Home() {
           router.push('/form');
           dispatch(
             openNotification({
-              message: 'Thank you so much!',
+              message: 'We really appreciate that, thanks!',
               severity: 'info',
             })
           );
