@@ -74,8 +74,8 @@ const QuestionComponent = ({ question }: { question: Question }) => {
         ))}
       </div>
       <Divider textAlign="center" style={{ marginTop: '50px' }}>
-        Question <Chip size="small" label={question.questionIndex + 1} /> of{' '}
-        <Chip size="small" label={survey.surveyQuestions.questions.length} />
+        Question <Chip size="small" label={question?.questionIndex + 1} /> of{' '}
+        <Chip size="small" label={survey?.surveyQuestions?.questions?.length} />
       </Divider>
     </div>
   );
