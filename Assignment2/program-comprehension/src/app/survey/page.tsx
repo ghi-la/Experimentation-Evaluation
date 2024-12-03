@@ -45,7 +45,7 @@ const SurveyPage = () => {
 
   useEffect(() => {
     if (survey.isSurveyCompleted) {
-      addSurvey(survey).then((data) => {});
+      addSurvey(survey);
     }
   }, [survey.isSurveyCompleted, survey]);
 

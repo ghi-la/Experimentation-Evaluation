@@ -19,6 +19,10 @@ const SurveyInformations = () => {
   }, []);
 
   const handleStartSurvey = () => {
+    const shuffledPossibilities = questions.map((question) => {
+      question.possibilities.sort(() => Math.random() - 0.5);
+      return question;
+    });
     const survey: Survey = {
       user: user,
       timer: 0,
@@ -26,7 +30,7 @@ const SurveyInformations = () => {
       isSurveyCompleted: false,
       surveyQuestions: {
         currentQuestionIndex: 0,
-        questions: questions,
+        questions: shuffledPossibilities,
       },
     };
 
