@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import React from 'react';
 import AppWrapper from './appWrapper';
@@ -10,7 +11,6 @@ export const metadata: Metadata = {
     'Application to analyze the program comprehension of users with different backgrounds',
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppWrapper>{children}</AppWrapper>
+        <Analytics />
       </body>
     </html>
   );
