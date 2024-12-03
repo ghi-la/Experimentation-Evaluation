@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Chip, Divider } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -73,6 +73,10 @@ const QuestionComponent = ({ question }: { question: Question }) => {
           </Button>
         ))}
       </div>
+      <Divider textAlign="center" style={{ marginTop: '50px' }}>
+        Question <Chip size="small" label={question.questionIndex + 1} /> of{' '}
+        <Chip size="small" label={survey.surveyQuestions.questions.length} />
+      </Divider>
     </div>
   );
 };
