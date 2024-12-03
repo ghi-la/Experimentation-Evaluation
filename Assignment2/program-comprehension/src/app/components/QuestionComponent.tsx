@@ -48,7 +48,7 @@ const QuestionComponent = ({ question }: { question: Question }) => {
 
   return (
     <div>
-      <h2>{question?.test}</h2>
+      <h1 style={{ fontSize: '3rem' }}>{question?.test}</h1>
       <div
         style={{
           display: window.innerWidth > 500 ? 'flex' : 'block',
