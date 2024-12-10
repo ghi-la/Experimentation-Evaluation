@@ -34,7 +34,7 @@ const Download = () => {
         color="primary"
         onClick={() => handleDownloadCSV(surveys)}
       >
-        Download Data
+        Download Data ({surveys.length} surveys)
       </Button>
     </PageContainer>
   );
