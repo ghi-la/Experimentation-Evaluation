@@ -4,9 +4,9 @@ const handleDownloadCSV = (surveys: Survey[]) => {
   let csvContent = '';
 
   // Define the CSV header
-  let csvHeader =
-    'Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors, WordCount, AgeRange, CodingFrequency, ProgrammingLanguagesCount\n';
-  csvContent += csvHeader;
+let csvHeader =
+  'AgeRange, CodingFrequency, ProgrammingLanguagesCount, Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors, WordCount\n';
+csvContent += csvHeader;
 
   surveys.forEach((survey) => {
     survey.surveyQuestions.questions.forEach((question) => {
