@@ -9,6 +9,7 @@ import { addQuestion, getAllQuestions } from '../services/questionServices';
 import { getAllSurveys } from '../services/surveyServices';
 import { isLoaded, isLoading, openNotification } from '../store/actions';
 import { Question, Survey } from '../store/models/survey';
+import { handleDownloadCSV } from './helper';
 import questionsPreset from './questionsPreset';
 
 const AdminPage: React.FC = () => {
@@ -49,40 +50,6 @@ const AdminPage: React.FC = () => {
         });
     });
   };
-  const handleDownloadCSV = () => {
-    let csvContent = '';
-
-    // Define the CSV header
-    // let csvHeader =
-    //   'Username, Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors\n';
-    let csvHeader =
-      'Timer, QuestionIndex, TimeTaken, Test, CaseVariant, Errors\n';
-    csvContent += csvHeader;
-
-    surveys.forEach((survey) => {
-      survey.surveyQuestions.questions.forEach((question) => {
-        const csvRow = [
-          // survey.user.name, // Username
-          survey.timer, // Total survey time
-          question.questionIndex, // Question index
-          question.timeTaken, // Time taken for the question
-          question.test, // Test name
-          question.caseVariant, // Case variant
-          question.errors, // Number of errors
-        ].join(', ');
-        csvContent += csvRow + '\n';
-      });
-    });
-
-    // Create and download the CSV file
-    const csvFile = new Blob([csvContent], { type: 'text/csv' });
-    const url = URL.createObjectURL(csvFile);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'survey-results.csv';
-    a.click();
-  };
-
 
   return (
     <PageContainer>
@@ -110,7 +77,7 @@ const AdminPage: React.FC = () => {
           <CardContent>
             <h2>Surveys: {surveys.length}</h2>
             <Button
-              onClick={handleDownloadCSV}
+              onClick={() => handleDownloadCSV(surveys)}
               fullWidth
               disabled={surveys.length <= 0}
             >
