@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{url}
+\usepackage[a4paper, margin=0.8in]{geometry}
+
+\title{What is the best performing sorting algorithm? \\ \large Experimental analysis commissioned by Bubble Inc}
+\author{Ghilardini Matteo, Toscano Sasha}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}
+
+
+
+\section{Introduction}
+
+
+\subsection*{Hypothesis}
+
+
+\newpage
+
+\section{Method}
+\subsection{Variables}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|c|l}
+        \textbf{Independent variable} & \textbf{Levels} & \textbf{Description}                               \\ \hline
+        Different algorithms          & 4               & 4 different algorithms                             \\
+        Data types                    & 3               & Integer (4 bytes), Char (2 bytes), Boolean (1 bit) \\
+        Size of the array             & 2               & Integer number, we selected 1,000 and 10,000       \\
+        Starting array order          & 3               & Sorted, Shuffled, or Reverse-sorted                \\
+    \end{tabular}
+    \caption{Independent variables}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|c|l}
+        \textbf{Dependent variable}  & \textbf{Measurement scale} & \textbf{Measurement method} \\
+        \hline
+        Time to complete the sorting & nanoseconds                & \texttt{System.nanoTime()}  \\
+    \end{tabular}
+    \caption{Dependent variables}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l}
+        \textbf{Control variable}     & \textbf{Fixed value}                                \\ \hline
+        Number of active applications & None outside of IDE and WSL Terminal                \\
+        Computer HW, OS, JDK          & Intel i7-9700k, 32GB RAM, Windows 10, OpenJDK 23.01 \\
+    \end{tabular}
+    \caption{Control variables}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Design}
+\subsubsection{Study Type}
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{c|c|c}
+        \textbf{Observational Study} & \textbf{Quasi-Experiment} & \textbf{Experiment} \\ \hline
+        \(\square\)                  & \(\square\)               & \(\boxtimes\)       \\
+    \end{tabular}
+    \caption{Study type selection}
+\end{table}
+
+
+
+\subsubsection{Number of Factors}
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{c|c|c}
+        \textbf{Single-Factor Design} & \textbf{Multi-Factor Design} & \textbf{Other} \\ \hline
+        \(\square\)                   & \(\boxtimes\)                & \(\square\)    \\
+    \end{tabular}
+    \caption{Number of factors selection}
+\end{table}
+
+\subsection{Participants}
+
+\subsection{Apparatus and Materials}
+
+
+\subsection{Procedure}
+
+\newpage
+
+\section{Results}
+\subsection{Visual Overview}
+
+
+\subsection{Descriptive Statistics}
+
+
+\subsection{Inferential Statistics}
+
+\clearpage
+\newpage
+
+\section{Discussion}
+\subsection{Compare Hypothesis to Results}
+
+
+\subsection{Limitations and Threats to Validity}
+
+
+\subsection{Conclusions}
+
+\newpage
+
+\section{Appendix}\label{chap:appendix}
+\subsection{Materials}
+
+\end{document}
