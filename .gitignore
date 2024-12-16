@@ -23,8 +23,14 @@
 hs_err_pid*
 replay_pid*
 
-
 .DS_Store
 Assignment2/.RData
 Assignment2/.Rhistory
 Assignment2/survey-results.csv
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.synctex.gz
