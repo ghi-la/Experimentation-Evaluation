@@ -42,7 +42,7 @@ export default function Home() {
           );
         }}
       >
-        I want to partecipate!
+        I want to participate!
       </Button>
       <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
         If you have any questions, please contact us.
