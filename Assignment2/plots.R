@@ -17,10 +17,9 @@ print(names(survey_data))
 # Clean the CodingFrequency column
 survey_data$CodingFrequency <- trimws(survey_data$CodingFrequency)
 
-# Filter records where CodingFrequency is "Daily"
+# Filter records where CodingFrequency is "Daily" or not
 expert_data <- subset(survey_data, CodingFrequency == "Daily")
 nonepert_data <- subset(survey_data, CodingFrequency != "Daily")
-
 
 plotDemographic <- function(survey_data){
   # Process the data to calculate scaled counts and include programming language counts
@@ -36,12 +35,10 @@ plotDemographic <- function(survey_data){
   # Create the plot
   ggplot(demographics, aes(x = AgeRange, y = ScaledCount, fill = CodingFrequency)) +
     geom_bar(stat = "identity", position = "dodge") +
-    geom_text(aes(label = round(AvgProgLangCount, 1)), 
-              position = position_dodge(width = 0.9), vjust = -0.5) +
     labs(
-      title = "Demographics of Survey Participants (Scaled to 45 Participants)",
+      title = "Demographics of Survey Participants (Scaled to 46 Participants)",
       x = "Age Range",
-      y = "Estimated Count",
+      y = "Number of People",
       fill = "Coding Frequency"
     ) +
     theme_bw() +
@@ -75,7 +72,6 @@ plotTimeTakenByAgeRange <- function (survey_data){
     ) +
     theme_bw()
 }
-plotTimeTakenByAgeRange(expert_data)
 
 plotErrorsByCaseVariant <- function(survey_data){
   # Errors by Quesion+CaseVariant
@@ -103,11 +99,13 @@ plotTimeTakenByCaseVariant_WordCount <- function(survey_data, identifier="All"){
     theme_bw()
 }
 
-plotTimeTakenByCaseVariant(daily_records)
+
+plotTimeTakenByAgeRange(expert_data)
+plotErrorsByCaseVariant(survey_data)
+plotDemographic(survey_data)
 plotTimeTakenByCaseVariant_WordCount(expert_data, "Experts")
 plotTimeTakenByCaseVariant_WordCount(nonepert_data, "Non Experts")
 plotTimeTakenByCaseVariant(expert_data, "Experts")
 plotTimeTakenByCaseVariant(nonepert_data, "Non Experts")
 plotTimeTakenByCaseVariant(survey_data)
-plotErrorsByCaseVariant(survey_data)
-plotDemographic(survey_data)
+
