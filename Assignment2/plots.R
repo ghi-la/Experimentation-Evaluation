@@ -5,80 +5,109 @@ library(dplyr)
 
 getwd()
 
-survey_data <- read.csv("survey-results.csv")
+# Load the dataset (adjust file path if necessary)
+survey_data <- read.csv("survey-results.csv", stringsAsFactors = FALSE)
 
-# Normalize counts to represent 45 participants
-demographics <- survey_data %>%
-  count(AgeRange, CodingFrequency) %>%
-  mutate(ScaledCount = n / sum(n) * 45)  # Scale counts to sum to 45 participants
+# Clean up column names to remove extra spaces
+names(survey_data) <- trimws(names(survey_data))
 
-# Demographic Distribution
-ggplot(demographics, aes(x = AgeRange, y = ScaledCount, fill = CodingFrequency)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(
-    title = "Demographics of Survey Participants (Scaled to 45 Participants)",
-    x = "Age Range",
-    y = "Estimated Count",
-    fill = "Coding Frequency"
-  ) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1)
-  )
+# Check column names to confirm "CodingFrequency" exists
+print(names(survey_data))
 
-# Time Taken by Question
-ggplot(survey_data, aes(x = factor(QuestionIndex), y = TimeTaken)) +
-  geom_boxplot(fill = "lightgreen", outlier.color = "red") +
-  labs(
-    title = "Distribution of Time Taken for Each Question",
-    x = "Question Index",
-    y = "Time Taken (seconds)"
-  ) +
-  theme_bw()
+# Clean the CodingFrequency column
+survey_data$CodingFrequency <- trimws(survey_data$CodingFrequency)
 
-# Time Taken by Quesion+CaseVariant
-ggplot(survey_data, aes(x = factor(QuestionIndex), y = TimeTaken, fill = CaseVariant)) +
-  geom_boxplot(outlier.color = "red") +
-  labs(
-    title = "Distribution of Time Taken for Each Question",
-    x = "Question Index",
-    y = "Time Taken (seconds)"
-  ) +
-  theme_bw()
+# Filter records where CodingFrequency is "Daily"
+expert_data <- subset(survey_data, CodingFrequency == "Daily")
+nonepert_data <- subset(survey_data, CodingFrequency != "Daily")
 
-# Time Taken by CaseVariant
-ggplot(survey_data, aes(x = CaseVariant, y = TimeTaken, fill = CaseVariant)) +
-  geom_boxplot(outlier.color = "red") +
-  labs(
-    x = "Question Index",
-    y = "Time Taken (seconds)"
-  ) +
-  theme_bw()
 
-# Errors by Quesion+CaseVariant
-ggplot(survey_data, aes(x = factor(QuestionIndex), y = Errors, fill = CaseVariant)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(
-    title = "Distribution of Errors for Each Question",
-    x = "Question Index",
-    y = "Number of Errors",
-    fill = "Case Variant"
-  ) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1)
-  )
+plotDemographic <- function(survey_data){
+  # Process the data to calculate scaled counts and include programming language counts
+  demographics <- survey_data %>%
+    group_by(AgeRange, CodingFrequency) %>%
+    summarise(
+      AvgProgLangCount = mean(ProgrammingLanguagesCount, na.rm = TRUE),
+      Count = n()
+    ) %>%
+    ungroup() %>%
+    mutate(ScaledCount = Count / sum(Count) * 46)
+  
+  # Create the plot
+  ggplot(demographics, aes(x = AgeRange, y = ScaledCount, fill = CodingFrequency)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    geom_text(aes(label = round(AvgProgLangCount, 1)), 
+              position = position_dodge(width = 0.9), vjust = -0.5) +
+    labs(
+      title = "Demographics of Survey Participants (Scaled to 45 Participants)",
+      x = "Age Range",
+      y = "Estimated Count",
+      fill = "Coding Frequency"
+    ) +
+    theme_bw() +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1)
+    )
+}
 
-# Errors by CaseVariant
-ggplot(survey_data, aes(x = CaseVariant, y = Errors, fill = CaseVariant)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(
-    title = "Distribution of Errors for Case Variant",
-    x = "Question Index",
-    y = "Number of Errors",
-    fill = "Case Variant"
-  ) +
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1)
-  )
+plotTimeTakenByCaseVariant <- function(survey_data, identifier="All") {
+  # Time Taken by CaseVariant
+  ggplot(survey_data, aes(x = CaseVariant, y = TimeTaken, fill = CaseVariant)) +
+    geom_boxplot(outlier.color = "red") +
+    stat_summary(fun = median, geom = "text", aes(label = round(..y.., 2)), 
+                 vjust = -0.5, color = "blue", size = 3.5) +
+    labs(
+      x = "Case Variant",
+      y = "Time Taken (nanoseconds)",
+      title = paste("Time Taken by Case Variant", identifier, sep = " - ")
+    ) +
+    theme_bw()
+}
+
+plotTimeTakenByAgeRange <- function (survey_data){
+  # Time Taken by CaseVariant
+  ggplot(survey_data, aes(x = AgeRange, y = TimeTaken, fill = AgeRange)) +
+    geom_boxplot(outlier.color = "red") +
+    labs( 
+      x = "Age Range",
+      y = "Time Taken (nanoseconds)",
+      title = "Time Taken by Age Range "
+    ) +
+    theme_bw()
+}
+plotTimeTakenByAgeRange(expert_data)
+
+plotErrorsByCaseVariant <- function(survey_data){
+  # Errors by Quesion+CaseVariant
+  ggplot(survey_data, aes(x = factor(CaseVariant), y = Errors, fill = CaseVariant)) +
+    geom_boxplot(outlier.color = "red") +
+    labs(
+      title = "Distribution of Errors by Case Variant",
+      x = "Case Variant",
+      y = "Number of Errors",
+      fill = "Case Variant"
+    ) +
+    theme_bw()
+}
+
+plotTimeTakenByCaseVariant_WordCount <- function(survey_data, identifier="All"){
+  # Time Taken by CaseVariant with WordCount bins
+  ggplot(survey_data, aes(x = CaseVariant, y = TimeTaken, fill = CaseVariant)) +
+    geom_boxplot(outlier.color = "red") +
+    facet_wrap(~ WordCount, nrow = 2) +  # Facet by WordCount bins
+    labs( 
+      x = "Case Variant",
+      y = "Time Taken (nanoseconds)",
+      title = paste("Time Taken by Case Variant Faceted by Word Count", identifier, sep = " - "),
+    ) +
+    theme_bw()
+}
+
+plotTimeTakenByCaseVariant(daily_records)
+plotTimeTakenByCaseVariant_WordCount(expert_data, "Experts")
+plotTimeTakenByCaseVariant_WordCount(nonepert_data, "Non Experts")
+plotTimeTakenByCaseVariant(expert_data, "Experts")
+plotTimeTakenByCaseVariant(nonepert_data, "Non Experts")
+plotTimeTakenByCaseVariant(survey_data)
+plotErrorsByCaseVariant(survey_data)
+plotDemographic(survey_data)
