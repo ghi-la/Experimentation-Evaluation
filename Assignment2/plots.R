@@ -55,7 +55,7 @@ plotTimeTakenByCaseVariant <- function(survey_data, identifier="All") {
                  vjust = -0.5, color = "blue", size = 3.5) +
     labs(
       x = "Case Variant",
-      y = "Time Taken (nanoseconds)",
+      y = "Time Taken (milliseconds)",
       title = paste("Time Taken by Case Variant", identifier, sep = " - ")
     ) +
     theme_bw()
@@ -67,7 +67,7 @@ plotTimeTakenByAgeRange <- function (survey_data){
     geom_boxplot(outlier.color = "red") +
     labs( 
       x = "Age Range",
-      y = "Time Taken (nanoseconds)",
+      y = "Time Taken (milliseconds)",
       title = "Time Taken by Age Range "
     ) +
     theme_bw()
@@ -93,7 +93,7 @@ plotTimeTakenByCaseVariant_WordCount <- function(survey_data, identifier="All"){
     facet_wrap(~ WordCount, nrow = 2) +  # Facet by WordCount bins
     labs( 
       x = "Case Variant",
-      y = "Time Taken (nanoseconds)",
+      y = "Time Taken (milliseconds)",
       title = paste("Time Taken by Case Variant Faceted by Word Count", identifier, sep = " - "),
     ) +
     theme_bw()
